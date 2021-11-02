@@ -301,8 +301,13 @@
                     <Source Name="MainSource">FuelManage.dpr</Source>
                 </Source>
                 <Excluded_Packages>
-                    <Excluded_Packages Name="$(BDSBIN)\dcloffice2k270.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
-                    <Excluded_Packages Name="$(BDSBIN)\dclofficexp270.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
+                    <Excluded_Packages Name="F:\Projetos\Arquivos\DelphyRio\Teechart v2019.27 Source\Source\..\Compiled\Delphi26.win32\Bin\DclFMXTeePro926.bpl">File F:\Projetos\Arquivos\DelphyRio\Teechart v2019.27 Source\Source\..\Compiled\Delphi26.win32\Bin\DclFMXTeePro926.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="F:\Projetos\Arquivos\DelphyRio\Teechart v2019.27 Source\Source\..\TeeTree\Compiled\Delphi26.win32\Bin\DclFMXTree26.bpl">File F:\Projetos\Arquivos\DelphyRio\Teechart v2019.27 Source\Source\..\TeeTree\Compiled\Delphi26.win32\Bin\DclFMXTree26.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="F:\Projetos\Arquivos\DelphyRio\Teechart v2019.27 Source\Source\..\TeeTree\Compiled\Delphi26.win32\Bin\DclTree2D26Tee9.bpl">File F:\Projetos\Arquivos\DelphyRio\Teechart v2019.27 Source\Source\..\TeeTree\Compiled\Delphi26.win32\Bin\DclTree2D26Tee9.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="F:\Projetos\Arquivos\DelphyRio\Teechart v2019.27 Source\Source\..\Compiled\Delphi26.win32\Bin\DclTeeMaker126.bpl">File F:\Projetos\Arquivos\DelphyRio\Teechart v2019.27 Source\Source\..\Compiled\Delphi26.win32\Bin\DclTeeMaker126.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="F:\Projetos\Arquivos\DelphyRio\Teechart v2019.27 Source\Source\..\Compiled\Delphi26.win32\Bin\DclTeePro926.bpl">File F:\Projetos\Arquivos\DelphyRio\Teechart v2019.27 Source\Source\..\Compiled\Delphi26.win32\Bin\DclTeePro926.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dcloffice2k260.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dclofficexp260.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
                 </Excluded_Packages>
             </Delphi.Personality>
             <Deployment Version="3">
