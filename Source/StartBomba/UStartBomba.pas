@@ -88,7 +88,7 @@ procedure TfrmSatrtDiario.btnBuscarFiltroClick(Sender: TObject);
 begin
  if edtCentroCusto.Text.Length=0 then
  begin
-   ShowMessage('Informe o centro de Custo!');
+   MyShowMessage('Informe o centro de Custo!',false);
    Exit;
  end;
   Filtro;
@@ -206,6 +206,7 @@ end;
 
 procedure TfrmSatrtDiario.FormShow(Sender: TObject);
 begin
+  StringGrid1.RowCount :=0;
   layTipoReport.Visible := false;
   inherited;
 end;

@@ -424,14 +424,14 @@ end;
 
 procedure TfrmPrincipal.TreeLocalEstoqueClick(Sender: TObject);
 begin
-  frmLocalEstoque := frmLocalEstoque.Create(Self);
-  try
-    layMnuPrincipal.Opacity :=0;
-    frmLocalEstoque.ShowModal;
-  finally
-    AnimationPrincipal.Start;
-    frmLocalEstoque.Free;
-  end;
+//  frmLocalEstoque := frmLocalEstoque.Create(Self);
+//  try
+//    layMnuPrincipal.Opacity :=0;
+ frmLocalEstoque.ShowModal;
+//  finally
+//    AnimationPrincipal.Start;
+//    frmLocalEstoque.Free;
+//  end;
 end;
 
 procedure TfrmPrincipal.TreeMaquinasClick(Sender: TObject);
