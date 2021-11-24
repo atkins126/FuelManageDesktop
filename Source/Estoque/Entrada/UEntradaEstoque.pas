@@ -250,7 +250,7 @@ implementation
 {$R *.fmx}
 
 uses UPrincipal,UProdutos, UCentrodeCusto,UCadMaquina, UdmDB, UdmReport,
-  LocalEstoque, UFornecedor;
+  ULocalEstoque, UFornecedor;
 
 procedure TfrmCadEntradaEstoque.btnAddClick(Sender: TObject);
 begin
@@ -589,15 +589,15 @@ end;
 
 procedure TfrmCadEntradaEstoque.EditButton2Click(Sender: TObject);
 begin
- frmLocalEstoque := TfrmLocalEstoque.Create(Self);
+ frmAuxLocalEstoque := TfrmAuxLocalEstoque.Create(Self);
   try
-    frmLocalEstoque.edtCentroCustoF.Text    := dmdb.TEstoqueEntradacentrocusto.AsString;
-    frmLocalEstoque.edtCentroCustoF.Enabled := false;
-    frmLocalEstoque.btnBuscarFiltroClick(Sender);
-    frmLocalEstoque.ShowModal;
+    frmAuxLocalEstoque.edtCentroCustoF.Text    := dmdb.TEstoqueEntradacentrocusto.AsString;
+    frmAuxLocalEstoque.edtCentroCustoF.Enabled := false;
+    frmAuxLocalEstoque.btnBuscarFiltroClick(Sender);
+    frmAuxLocalEstoque.ShowModal;
   finally
-    frmLocalEstoque.edtCentroCustoF.Text    := '';
-    frmLocalEstoque.edtCentroCustoF.Enabled := true;
+    frmAuxLocalEstoque.edtCentroCustoF.Text    := '';
+    frmAuxLocalEstoque.edtCentroCustoF.Enabled := true;
     vIdLocalEstoque      := dmdb.TLocalEstoqueid.AsString;
     edtLocalEstoque.Text  := dmdb.TLocalEstoquenome.AsString;
   end;
@@ -831,9 +831,9 @@ end;
 
 procedure TfrmCadEntradaEstoque.SearchEditButton1Click(Sender: TObject);
 begin
-  frmLocalEstoque := TfrmLocalEstoque.Create(Self);
+  frmAuxLocalEstoque := TfrmAuxLocalEstoque.Create(Self);
   try
-    frmLocalEstoque.ShowModal;
+    frmAuxLocalEstoque.ShowModal;
   finally
     edtLocalEstoqueF.Text := dmdb.TLocalEstoqueNome.AsString;
     Filtro;

@@ -330,6 +330,15 @@ type
     TStartBombacentrocusto: TWideStringField;
     TStartBombasaldo: TFMTBCDField;
     TStartBombavolumeutilizado: TFMTBCDField;
+    TUsuarioiderp: TIntegerField;
+    TProdutosiderp: TIntegerField;
+    TMaquinasiderp: TIntegerField;
+    TCentroCustoiderp: TIntegerField;
+    TLocalEstoqueidcombustivel: TIntegerField;
+    TLocalEstoqueiderp: TIntegerField;
+    TLocalEstoquecombustivel: TWideStringField;
+    TAbastecimentolatitude: TFMTBCDField;
+    TAbastecimentolongitude: TFMTBCDField;
     procedure TUsuarioReconcileError(DataSet: TFDDataSet; E: EFDException;
       UpdateKind: TFDDatSRowState; var Action: TFDDAptReconcileAction);
     procedure TAuxMarcaReconcileError(DataSet: TFDDataSet; E: EFDException;
@@ -356,16 +365,10 @@ type
     function  VerificaCadastroExiste(ACampo,Atabela,Anome:string):Boolean;
     procedure AbreProdutos(vFiltro:string);
     procedure AbreMaquinas(vFiltro:string);
-//    procedure DeletaSaidaAbastecimento(idAbastecimento: string);
     function  RetornaMaxId(AnomeTabela: string): string;
-//    procedure InsereSaidaAbastecimento(dataSaida, idcentrocusto,
-//     idlocalestoque, idproduto, qtditens, idresponsavel, idAbastecimento: string);
-//    procedure AtualizaSaidaAbastecimento(dataSaida, idcentrocusto,
-//     idlocalestoque, idproduto, qtditens, idresponsavel, idAbastecimento: string);
     procedure AbreAbastecimento(vFiltro: string);
     procedure AbreAbastecimentoOutros(vIdAbastecimento: string);
     procedure AbreEntradaEstoque(vFiltro:string);
-//    procedure AtaulizaValorMedioProduto(idNota,idProduto, dataEntrada: string);
     procedure AbreSaidaEstoque(vFiltro: string);
     function  RetornaCustoMedioProduto(idProduto: string): Double;
     function  RetornaRegistoCustoDia(idProduto, DataEntrada: string): Boolean;
@@ -376,6 +379,7 @@ type
     procedure MovLocalEstoque(vFiltro: string);
     function  RetornaSaldoAtualLocal(vIdLocal:string):string;
     procedure AbreStartBomba(vFiltro:String);
+    procedure AbrirLocalEstoque(vFiltro:string);
   end;
 
 var
@@ -640,6 +644,24 @@ begin
    Add('where s.status>-1');
    Add(vFiltro);
    Add('order by dataastart desc ');
+   Open;
+ end;
+end;
+
+procedure Tdmdb.AbrirLocalEstoque(vFiltro: string);
+begin
+ with TLocalEstoque,TLocalEstoque.SQL do
+ begin
+   Clear;
+   Add('select');
+   Add(' a.*,');
+   Add(' b.nome centrocusto,');
+   Add(' p.nome Combustivel');
+   Add('from LocalEstoque a');
+   Add('join centrocusto b on a.idcentrocusto=b.id');
+   Add('join produtos p on p.id=a.idcombustivel');
+   Add('where a.status=1');
+   Add(vFiltro);
    Open;
  end;
 end;

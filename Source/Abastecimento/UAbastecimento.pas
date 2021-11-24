@@ -40,7 +40,6 @@ type
     edtMaquina: TEdit;
     Label9: TLabel;
     Label10: TLabel;
-    cbxLocalEstoque: TComboBox;
     Label11: TLabel;
     Label12: TLabel;
     edtVolumeLitros: TEdit;
@@ -136,6 +135,9 @@ type
     Label33: TLabel;
     Image15: TImage;
     Image16: TImage;
+    edtLocalEstoque: TEdit;
+    ClearEditButton11: TClearEditButton;
+    SearchEditButton8: TSearchEditButton;
     procedure FormShow(Sender: TObject);
     procedure btnAddClick(Sender: TObject);
     procedure edtVolumeLitrosChangeTracking(Sender: TObject);
@@ -144,7 +146,6 @@ type
     procedure EditButton4Click(Sender: TObject);
     procedure btnEditarClick(Sender: TObject);
     procedure btnDeletarClick(Sender: TObject);
-    procedure cbxLocalEstoqueChange(Sender: TObject);
     procedure edtVolumeLitrosKeyDown(Sender: TObject; var Key: Word;
       var KeyChar: Char; Shift: TShiftState);
     procedure edtQuantidadeChangeTracking(Sender: TObject);
@@ -162,7 +163,6 @@ type
     procedure btnBuscaCombustivelClick(Sender: TObject);
     procedure btnBuscaCentroCustoClick(Sender: TObject);
     procedure cbxBombaFClick(Sender: TObject);
-    procedure cbxCentroCustoFChange(Sender: TObject);
     procedure cbxLocalEstoqueClick(Sender: TObject);
     procedure SearchEditButton2Click(Sender: TObject);
     procedure SearchEditButton3Click(Sender: TObject);
@@ -191,12 +191,12 @@ type
       Shift: TShiftState; X, Y: Single);
     procedure btnComFotoMouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Single);
+    procedure SearchEditButton8Click(Sender: TObject);
   private
     vIdCerntroCusto,vIdMaquina,vIdOperador,vIdLocalEstoque,vIDProduto,vIdAtividade,
     vCombustivelEx,vBombaEx,IdCombustivel:string;
     vTipoMedicao:integer;
     procedure SomarColunasGrid;
-    procedure CarregaLocalEstoque(vIdCen:string);
   public
     procedure Filtro;
   end;
@@ -209,7 +209,7 @@ implementation
 {$R *.fmx}
 
 uses UDmDB, UCadMaquina, UOperadorMaquinas, UPrincipal, UProdutos,
-  UAuxAtividadeAbastecimento,UCentrodeCusto, UdmReport;
+  UAuxAtividadeAbastecimento,UCentrodeCusto, UdmReport, ULocalEstoque;
 
 procedure TfrmAbastecimento.btnAddClick(Sender: TObject);
 begin
@@ -217,7 +217,7 @@ begin
   edtMaquina.Text             :='';
   edtHorimetro.Text           :='0';
   edtOperador.Text            :='';
-  cbxLocalEstoque.ItemIndex   :=-1;
+  edtLocalEstoque.Text        :='';
   edtcombustivel.Text         :='';
   edtVolumeLitros.Text        :='0';
   edtCentroCusto.Text         :='';
@@ -241,7 +241,6 @@ begin
   finally
     vIdCerntroCusto      := dmDB.TCentroCustoid.AsString;
     edtCentroCusto.Text  := dmDB.TCentroCustonome.AsString;
-    CarregaLocalEstoque(vIdCerntroCusto);
   end;
 end;
 
@@ -325,12 +324,11 @@ begin
  dmDB.TAbastecimento.Edit;
  edtCentroCusto.Text       := dmDB.TAbastecimentocentrocustonome.AsString;
  vIdCerntroCusto           := dmDB.TAbastecimentoidcentrocusto.AsString;
- CarregaLocalEstoque(vIdCerntroCusto);
  edtAtividade.Text         := dmDB.TAbastecimentoAtividade.AsString;
  vIdAtividade              := dmDB.TAbastecimentoidAtividade.AsString;
  edtDataAbastecimento.Date := dmDB.TAbastecimentodataabastecimento.AsDateTime;
  vIdLocalEstoque           := dmDB.TAbastecimentoidlocalestoque.AsString;
- cbxLocalEstoque.ItemIndex := cbxLocalEstoque.Items.IndexOf(dmDB.TAbastecimentolocaldeEstoque.AsString);
+ edtLocalEstoque.text      := dmDB.TAbastecimentolocaldeEstoque.AsString;
  vIdMaquina                := dmDB.TAbastecimentoidmaquina.AsString;
  edtMaquina.Text           := dmDB.TAbastecimentoprefixo.AsString;
  vIdOperador               := dmDB.TAbastecimentoidoperador.AsString;
@@ -420,7 +418,7 @@ begin
     MyShowMessage('Informe o Operador!!',false);
     Exit;
   end;
-  if cbxLocalEstoque.ItemIndex=-1 then
+  if edtLocalEstoque.Text.Length=0  then
   begin
     MyShowMessage('Informe o Local Estoque!!',false);
     Exit;
@@ -489,7 +487,10 @@ begin
   dmDB.TAbastecimentocombustivel.AsString        := IdCombustivel;
   dmDB.TAbastecimentodataabastecimento.AsDateTime:= edtDataAbastecimento.DateTime;
   dmDB.TAbastecimentohora.AsDateTime             := edtHoraAbastecimento.DateTime;
-  dmDB.TAbastecimentohorimetro.AsFloat           := strToFloat(edtHorimetro.Text);
+  if edtHorimetro.Text.Length>0 then
+   dmDB.TAbastecimentohorimetro.AsFloat           := strToFloat(edtHorimetro.Text);
+  if edtKMAtual.Text.Length>0 then
+   dmDB.TAbastecimentokmatual.AsFloat             := strToFloat(edtKMAtual.Text);
   dmDB.TAbastecimentoidcentrocusto.Asstring      := vIdCerntroCusto;
   if edtObs.Text.Length>0 then
    dmDB.TAbastecimentoobs.AsString := edtObs.Text;
@@ -518,33 +519,7 @@ begin
     myShowMessage('Erro ao salvar Abastecimento:'+E.Message,false);
   end;
 end;
-procedure TfrmAbastecimento.CarregaLocalEstoque(vIdCen: string);
-var
- vQry : TFDQuery;
-begin
- vQry := TFDQuery.Create(nil);
- vQry.Connection := dmDB.FDConPG;
- cbxBombaF.Items.Clear;
- cbxBombaF.Items.Add('Todas');
- cbxLocalEstoque.Items.Clear;
- with vQry,vQry.SQL do
- begin
-   Clear;
-   Add('select * from localestoque');
-   Add('where status=1 and idcentrocusto='+vIdCen);
-   Open;
-   while not vQry.Eof do
-   begin
-     cbxLocalEstoque.Items.AddObject(vQry.FieldByName('nome').AsString,
-      TObject(vQry.FieldByName('id').AsInteger));
-     cbxBombaF.Items.AddObject(vQry.FieldByName('nome').AsString,
-      TObject(vQry.FieldByName('id').AsInteger));
-     vQry.Next;
-   end;
- end;
- cbxBombaF.ItemIndex :=0;
- vQry.Free;
-end;
+
 
 procedure TfrmAbastecimento.cbxBombaFChange(Sender: TObject);
 begin
@@ -559,20 +534,6 @@ begin
   MyShowMessage('Selecione o Centro de Custo antes de selecionar o Local de Estoque!',false);
   Exit;
  end;
-end;
-
-procedure TfrmAbastecimento.cbxCentroCustoFChange(Sender: TObject);
-begin
- if edtCentroCustoF.Text.Length=0 then
- begin
-   CarregaLocalEstoque(vIdCerntroCusto);
- end;
-end;
-
-procedure TfrmAbastecimento.cbxLocalEstoqueChange(Sender: TObject);
-begin
- if cbxLocalEstoque.ItemIndex>-1 then
-  vIdLocalEstoque := IntToStr(Integer(cbxLocalEstoque.Items.Objects[cbxLocalEstoque.ItemIndex]));
 end;
 
 procedure TfrmAbastecimento.cbxLocalEstoqueClick(Sender: TObject);
@@ -794,7 +755,6 @@ begin
   finally
     vIdCerntroCusto      := dmDB.TCentroCustoid.AsString;
     edtCentroCusto.Text  := dmDB.TCentroCustonome.AsString;
-    CarregaLocalEstoque(vIdCerntroCusto);
   end;
 end;
 
@@ -817,7 +777,6 @@ begin
   finally
     vIdCerntroCusto      := dmDB.TCentroCustoid.AsString;
     edtCentroCustoF.Text  := dmDB.TCentroCustonome.AsString;
-    CarregaLocalEstoque(vIdCerntroCusto);
   end;
 end;
 
@@ -852,6 +811,28 @@ begin
     IdCombustivel           := dmDB.TProdutosid.AsString;
     edtcombustivelF.Text     := dmDB.TProdutosnome.AsString;
   end;
+end;
+
+procedure TfrmAbastecimento.SearchEditButton8Click(Sender: TObject);
+begin
+ if edtCentroCusto.Text.Length=0 then
+ begin
+   MyShowMessage('Informe o Centro de Custo Antes!',false);
+   Exit;
+ end
+ else
+ begin
+  frmAuxLocalEstoque := TfrmAuxLocalEstoque.Create(Self);
+  try
+    frmAuxLocalEstoque.vFiltro :=' and idcentrocusto='+vIdCerntroCusto;
+    frmAuxLocalEstoque.ShowModal;
+  finally
+    vIdLocalEstoque       := dmDB.TLocalEstoqueid.AsString;
+    edtLocalEstoque.Text  := dmDB.TLocalEstoquenome.AsString;
+    IdCombustivel         := dmDB.TLocalEstoqueidcombustivel.AsString;
+    edtcombustivel.Text   := dmDB.TLocalEstoquecombustivel.AsString;
+  end;
+ end;
 end;
 
 procedure TfrmAbastecimento.SomarColunasGrid;

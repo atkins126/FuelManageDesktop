@@ -56,6 +56,14 @@ type
     Label20: TLabel;
     edtCodFabF: TEdit;
     ClearEditButton1: TClearEditButton;
+    Layout14: TLayout;
+    Rectangle5: TRectangle;
+    Layout15: TLayout;
+    Layout16: TLayout;
+    Layout19: TLayout;
+    Label4: TLabel;
+    edtIdErp: TEdit;
+    ClearEditButton13: TClearEditButton;
     procedure FormShow(Sender: TObject);
     procedure edtEstoqueMinKeyDown(Sender: TObject; var Key: Word;
       var KeyChar: Char; Shift: TShiftState);
@@ -173,6 +181,8 @@ begin
  dmdb.TProdutosEstoqueMinimo.AsString       := edtEstoqueMin.Text;
  dmdb.TProdutosCodigoBarras.AsString        := edtCodBarras.Text;
  dmdb.TProdutostipo.AsInteger               := cbxTipo.ItemIndex;
+ if edtIdErp.Text.Length>0 then
+  dmdb.TMaquinasiderp.AsString              := edtIdErp.Text;
  try
   dmdb.TProdutos.ApplyUpdates(-1);
   MyShowMessage('Produto Cadastrado com Sucesso!',false);
@@ -219,6 +229,7 @@ begin
   cbxTipo.ItemIndex          := dmdb.TProdutostipo.AsInteger;
   cbxUnidadeMedida.ItemIndex := cbxUnidadeMedida.Items.IndexOf(dmdb.TProdutosunidademedida.AsString);
   edtCodigoFabricante.Text   := dmdb.TProdutoscodigofabricante.AsString;
+  edtIdErp.Text              := dmdb.TProdutosiderp.AsString;
   dmdb.TProdutos.Edit;
   inherited;
 end;

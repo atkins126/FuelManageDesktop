@@ -139,7 +139,7 @@ implementation
 
 {$R *.fmx}
 
-uses UProdutos,UCentrodeCusto, LocalEstoque, UPrincipal,
+uses UProdutos,UCentrodeCusto, ULocalEstoque, UPrincipal,
   UUsuarios, UdmDB, UdmReport;
 
 procedure TfrmSaidaEstoque.btnAddClick(Sender: TObject);
@@ -345,15 +345,15 @@ begin
     MyShowMessage('Informe o centro de custo antes!!',false);
     Exit;
   end;
-  frmLocalEstoque := TfrmLocalEstoque.Create(Self);
+  frmAuxLocalEstoque := TfrmAuxLocalEstoque.Create(Self);
   try
-    frmLocalEstoque.edtCentroCustoF.Text    := edtCentroCusto.Text;
-    frmLocalEstoque.edtCentroCustoF.Enabled := false;
-    frmLocalEstoque.btnBuscarFiltroClick(Sender);
-    frmLocalEstoque.ShowModal;
+    frmAuxLocalEstoque.edtCentroCustoF.Text    := edtCentroCusto.Text;
+    frmAuxLocalEstoque.edtCentroCustoF.Enabled := false;
+    frmAuxLocalEstoque.btnBuscarFiltroClick(Sender);
+    frmAuxLocalEstoque.ShowModal;
   finally
-    frmLocalEstoque.edtCentroCustoF.Text    := '';
-    frmLocalEstoque.edtCentroCustoF.Enabled := true;
+    frmAuxLocalEstoque.edtCentroCustoF.Text    := '';
+    frmAuxLocalEstoque.edtCentroCustoF.Enabled := true;
     vIdLocalEstoque      := dmdb.TLocalEstoqueid.AsString;
     edtLocalEstoque.Text  := dmdb.TLocalEstoquenome.AsString;
   end;
@@ -424,9 +424,9 @@ end;
 
 procedure TfrmSaidaEstoque.SearchEditButton1Click(Sender: TObject);
 begin
-  frmLocalEstoque := TfrmLocalEstoque.Create(Self);
+  frmAuxLocalEstoque := TfrmAuxLocalEstoque.Create(Self);
   try
-    frmLocalEstoque.ShowModal;
+    frmAuxLocalEstoque.ShowModal;
   finally
     edtLocalEstoqueF.Text := dmdb.TLocalEstoqueNome.AsString;
   end;

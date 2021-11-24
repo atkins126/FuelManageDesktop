@@ -136,7 +136,7 @@ implementation
 
 {$R *.fmx}
 
-uses UDMDB, LocalEstoque, UProdutos, UPrincipal, UCentrodeCusto, UdmReport;
+uses UDMDB, ULocalEstoque, UProdutos, UPrincipal, UCentrodeCusto, UdmReport;
 
 procedure TfrmMovLocalEstoque.btnAddClick(Sender: TObject);
 begin
@@ -269,15 +269,15 @@ begin
    MyShowMessage('Selecione o Centro de Custo de Destino!',false);
    Exit;
   end;
-  frmLocalEstoque := TfrmLocalEstoque.Create(Self);
+  frmAuxLocalEstoque := TfrmAuxLocalEstoque.Create(Self);
   try
-    frmLocalEstoque.edtCentroCustoF.Text    := edtCentroCustoDestino.Text;
-    frmLocalEstoque.edtCentroCustoF.Enabled := false;
-    frmLocalEstoque.btnBuscarFiltroClick(Sender);
-    frmLocalEstoque.ShowModal;
+    frmAuxLocalEstoque.edtCentroCustoF.Text    := edtCentroCustoDestino.Text;
+    frmAuxLocalEstoque.edtCentroCustoF.Enabled := false;
+    frmAuxLocalEstoque.btnBuscarFiltroClick(Sender);
+    frmAuxLocalEstoque.ShowModal;
   finally
-    frmLocalEstoque.edtCentroCustoF.Text    := '';
-    frmLocalEstoque.edtCentroCustoF.Enabled := true;
+    frmAuxLocalEstoque.edtCentroCustoF.Text    := '';
+    frmAuxLocalEstoque.edtCentroCustoF.Enabled := true;
     vIdLocalDestino           := dmdb.TLocalEstoqueid.AsString;
     lblSaldoAtualDestino.Text := dmdb.RetornaSaldoAtualLocal(vIdLocalDestino);
     edtLocalDestino.Text      := dmdb.TLocalEstoquenome.AsString;
@@ -291,12 +291,12 @@ begin
    MyShowMessage('Selecione o Centro de Custo de Origem!',false);
    Exit;
   end;
-  frmLocalEstoque := TfrmLocalEstoque.Create(Self);
+  frmAuxLocalEstoque := TfrmAuxLocalEstoque.Create(Self);
   try
-    frmLocalEstoque.edtCentroCustoF.Text    := edtCentroCustoOrigem.Text;
-    frmLocalEstoque.edtCentroCustoF.Enabled := false;
-    frmLocalEstoque.btnBuscarFiltroClick(Sender);
-    frmLocalEstoque.ShowModal;
+    frmAuxLocalEstoque.edtCentroCustoF.Text    := edtCentroCustoOrigem.Text;
+    frmAuxLocalEstoque.edtCentroCustoF.Enabled := false;
+    frmAuxLocalEstoque.btnBuscarFiltroClick(Sender);
+    frmAuxLocalEstoque.ShowModal;
   finally
     vIdLocalOrigem           := dmdb.TLocalEstoqueid.AsString;
     lblSaldoAtualOrigem.Text := dmdb.RetornaSaldoAtualLocal(vIdLocalOrigem);

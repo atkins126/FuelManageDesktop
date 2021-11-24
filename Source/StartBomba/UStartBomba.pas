@@ -80,7 +80,7 @@ implementation
 
 {$R *.fmx}
 
-uses UdmDB, UdmReport, LocalEstoque, UCentrodeCusto;
+uses UdmDB, UdmReport, ULocalEstoque, UCentrodeCusto;
 
 { TfrmCadPadrao1 }
 

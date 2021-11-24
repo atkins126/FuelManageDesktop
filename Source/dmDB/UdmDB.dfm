@@ -4,17 +4,19 @@ object dmdb: Tdmdb
   Width = 598
   object FDConPG: TFDConnection
     Params.Strings = (
-      'Database=FuelManage'
+      'Database=FuelManager'
       'Server=127.0.0.1'
       'User_Name=postgres'
       'Password=Dev#110485'
       'Pooled='
       'DriverID=PG')
+    Connected = True
     LoginPrompt = False
     Left = 21
     Top = 16
   end
   object PgDriverLink: TFDPhysPgDriverLink
+    VendorLib = 'D:\Projetos2021\FuelManageDesktop\Deploy\libpq.dll'
     Left = 21
     Top = 64
   end
@@ -106,6 +108,10 @@ object dmdb: Tdmdb
       Origin = 'tipostr'
       ReadOnly = True
       BlobType = ftWideMemo
+    end
+    object TUsuarioiderp: TIntegerField
+      FieldName = 'iderp'
+      Origin = 'iderp'
     end
   end
   object TAuxMarca: TFDQuery
@@ -445,6 +451,10 @@ object dmdb: Tdmdb
       Origin = 'saldoatual'
       Precision = 15
     end
+    object TProdutosiderp: TIntegerField
+      FieldName = 'iderp'
+      Origin = 'iderp'
+    end
   end
   object TMaquinas: TFDQuery
     CachedUpdates = True
@@ -597,6 +607,10 @@ object dmdb: Tdmdb
       ReadOnly = True
       BlobType = ftWideMemo
     end
+    object TMaquinasiderp: TIntegerField
+      FieldName = 'iderp'
+      Origin = 'iderp'
+    end
   end
   object TCentroCusto: TFDQuery
     CachedUpdates = True
@@ -651,6 +665,10 @@ object dmdb: Tdmdb
       Origin = 'statusstr'
       ReadOnly = True
       BlobType = ftWideMemo
+    end
+    object TCentroCustoiderp: TIntegerField
+      FieldName = 'iderp'
+      Origin = 'iderp'
     end
   end
   object TAbastecimento: TFDQuery
@@ -823,6 +841,18 @@ object dmdb: Tdmdb
       FieldName = 'centrocustonome'
       Origin = 'centrocustonome'
       Size = 50
+    end
+    object TAbastecimentolatitude: TFMTBCDField
+      FieldName = 'latitude'
+      Origin = 'latitude'
+      Precision = 9
+      Size = 6
+    end
+    object TAbastecimentolongitude: TFMTBCDField
+      FieldName = 'longitude'
+      Origin = 'longitude'
+      Precision = 9
+      Size = 6
     end
   end
   object TAbastecimentoOutros: TFDQuery
@@ -1254,12 +1284,16 @@ object dmdb: Tdmdb
     CachedUpdates = True
     Connection = FDConPG
     SQL.Strings = (
-      'select a.*,b.nome centrocusto'
+      'select '
+      ' a.*,'
+      ' b.nome centrocusto,'
+      ' p.nome Combustivel'
       'from LocalEstoque a'
       'join centrocusto b on a.idcentrocusto=b.id'
+      'join produtos p on p.id=a.idcombustivel '
       'where a.status=1')
     Left = 270
-    Top = 88
+    Top = 112
     object TLocalEstoqueid: TIntegerField
       FieldName = 'id'
       Origin = 'id'
@@ -1308,6 +1342,20 @@ object dmdb: Tdmdb
       AutoGenerateValue = arDefault
       FieldName = 'centrocusto'
       Origin = 'centrocusto'
+      Size = 50
+    end
+    object TLocalEstoqueidcombustivel: TIntegerField
+      FieldName = 'idcombustivel'
+      Origin = 'idcombustivel'
+    end
+    object TLocalEstoqueiderp: TIntegerField
+      FieldName = 'iderp'
+      Origin = 'iderp'
+    end
+    object TLocalEstoquecombustivel: TWideStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'combustivel'
+      Origin = 'combustivel'
       Size = 50
     end
   end

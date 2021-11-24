@@ -99,6 +99,14 @@ type
     BindSourceDB1: TBindSourceDB;
     LinkGridToDataSourceBindSourceDB1: TLinkGridToDataSource;
     BindingsList1: TBindingsList;
+    Layout14: TLayout;
+    Rectangle5: TRectangle;
+    Layout15: TLayout;
+    Layout16: TLayout;
+    Layout19: TLayout;
+    Label17: TLabel;
+    edtIdErp: TEdit;
+    ClearEditButton13: TClearEditButton;
     procedure btnAddClick(Sender: TObject);
     procedure EditButton4Click(Sender: TObject);
     procedure btnEditarClick(Sender: TObject);
@@ -125,6 +133,8 @@ type
       Shift: TShiftState);
     procedure GridMaquinasCellDblClick(const Column: TColumn;
       const Row: Integer);
+    procedure edtIdErpKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char;
+      Shift: TShiftState);
   private
     vIdMarca,vIdGrupo,vIdSubgrupo:string;
   public
@@ -163,7 +173,7 @@ end;
 
 procedure TfrmCadMaquinaVeiculo.btnBuscarFiltroClick(Sender: TObject);
 begin
- Filtro;
+  Filtro;
 end;
 
 procedure TfrmCadMaquinaVeiculo.btnCancelaClick(Sender: TObject);
@@ -232,6 +242,8 @@ begin
  if edtChassi.Text.Length>0 then
   dmdb.TMaquinaschassi.AsString             := edtChassi.Text;
  dmdb.TMaquinastipomedicao.AsInteger        := cbxTipoMedicao.ItemIndex;
+ if edtIdErp.Text.Length>0 then
+  dmdb.TMaquinasiderp.AsString              := edtIdErp.Text;
  try
   dmdb.TMaquinas.ApplyUpdates(-1);
   MyShowMessage('Maquina Cadastrado com Sucesso!',false);
@@ -282,6 +294,7 @@ begin
  cbxAno.ItemIndex             := cbxAno.Items.IndexOf(dmdb.TMaquinasano.AsString);
  edtChassi.Text               := dmdb.TMaquinaschassi.AsString;
  cbxTipoMedicao.ItemIndex     := dmdb.TMaquinastipomedicao.AsInteger;
+ edtIdErp.Text                := dmdb.TMaquinasiderp.AsString;
  dmdb.TMaquinas.Edit;
  inherited;
 end;
@@ -300,6 +313,15 @@ begin
     vIdMarca      := dmdb.TAuxMarcaid.AsString;
     edtMarca.Text := dmdb.TAuxMarcanome.AsString;
   end;
+end;
+
+procedure TfrmCadMaquinaVeiculo.edtIdErpKeyUp(Sender: TObject; var Key: Word;
+  var KeyChar: Char; Shift: TShiftState);
+begin
+ if ((keyChar in ['0'..'9'] = false) and (word(key) <> vk_back)) then
+ begin
+   KeyChar := #0;
+ end;
 end;
 
 procedure TfrmCadMaquinaVeiculo.edtValorKeyDown(Sender: TObject; var Key: Word;

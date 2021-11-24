@@ -173,7 +173,7 @@ implementation
 
 uses UMsgDlg,UCadPadrao, UdmDB, UUsuarios, UAuxMarcas, UAuxGrupo, UAuxSubGrupo,
   UOperadorMaquinas, UAuxAtividadeAbastecimento, UProdutos, UCadMaquina,
-  UCentrodeCusto, UAbastecimento, LocalEstoque, UFornecedor, UEntradaEstoque,
+  UCentrodeCusto, UAbastecimento, ULocalEstoque, UFornecedor, UEntradaEstoque,
   USaidaEstoque, UMovEntreLocalEstoque, UStartBomba;
 
 procedure TfrmPrincipal.Notificacao(Titulo,Notificacao:string);
@@ -424,14 +424,15 @@ end;
 
 procedure TfrmPrincipal.TreeLocalEstoqueClick(Sender: TObject);
 begin
-//  frmLocalEstoque := frmLocalEstoque.Create(Self);
-//  try
-//    layMnuPrincipal.Opacity :=0;
- frmLocalEstoque.ShowModal;
-//  finally
-//    AnimationPrincipal.Start;
-//    frmLocalEstoque.Free;
-//  end;
+  frmAuxLocalEstoque := TfrmAuxLocalEstoque.Create(nil);
+  try
+    layMnuPrincipal.Opacity :=0;
+    frmAuxLocalEstoque.vFiltro :='';
+    frmAuxLocalEstoque.ShowModal;
+  finally
+    AnimationPrincipal.Start;
+    frmAuxLocalEstoque.Free;
+  end;
 end;
 
 procedure TfrmPrincipal.TreeMaquinasClick(Sender: TObject);

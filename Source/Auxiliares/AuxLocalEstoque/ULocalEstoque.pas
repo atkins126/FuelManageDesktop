@@ -1,38 +1,45 @@
-unit LocalEstoque;
+unit ULocalEstoque;
 
 interface
 
 uses
-  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
+  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants, 
   FMX.Types, FMX.Graphics, FMX.Controls, FMX.Forms, FMX.Dialogs, FMX.StdCtrls,
   UCadPadrao, System.Rtti, FMX.Grid.Style, FireDAC.Stan.Intf,
   FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
   FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
   Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client, FMX.ActnList,
   System.Actions, FMX.TabControl, FMX.Ani, FMX.ScrollBox, FMX.Grid, FMX.Edit,
-  FMX.Controls.Presentation, FMX.Objects, FMX.Layouts, Fmx.Bind.Grid,
-  System.Bindings.Outputs, Fmx.Bind.Editors, Data.Bind.EngExt,
-  Fmx.Bind.DBEngExt, Data.Bind.Components, Data.Bind.Grid, Data.Bind.DBScope,
-  FMX.ListBox;
+  FMX.Objects, FMX.Controls.Presentation, FMX.Layouts, Data.Bind.EngExt,
+  Fmx.Bind.DBEngExt, Fmx.Bind.Grid, System.Bindings.Outputs, Fmx.Bind.Editors,
+  Data.Bind.Components, Data.Bind.Grid, Data.Bind.DBScope;
 
 type
-  TfrmLocalEstoque = class(TfrmCadPadrao)
-    BindSourceDB1: TBindSourceDB;
-    LinkGridToDataSourceBindSourceDB1: TLinkGridToDataSource;
-    BindingsList1: TBindingsList;
+  TfrmAuxLocalEstoque = class(TfrmCadPadrao)
+    Label6: TLabel;
+    edtCentroCustoF: TEdit;
+    ClearEditButton3: TClearEditButton;
+    edtCombustivelF: TEdit;
+    ClearEditButton5: TClearEditButton;
+    Label8: TLabel;
+    Layout4: TLayout;
+    Rectangle2: TRectangle;
     laySubSubSubCad: TLayout;
     Label4: TLabel;
     edtNome: TEdit;
+    ClearEditButton2: TClearEditButton;
     Layout1: TLayout;
     Rectangle3: TRectangle;
     Layout2: TLayout;
     edtCentroCusto: TEdit;
     SearchEditButton1: TSearchEditButton;
     ClearEditButton1: TClearEditButton;
-    ClearEditButton2: TClearEditButton;
-    edtCentroCustoF: TEdit;
-    ClearEditButton3: TClearEditButton;
-    Label6: TLabel;
+    Layout3: TLayout;
+    Label5: TLabel;
+    Label7: TLabel;
+    edtCombustivel: TEdit;
+    SearchEditButton2: TSearchEditButton;
+    ClearEditButton4: TClearEditButton;
     Layout14: TLayout;
     Rectangle5: TRectangle;
     Layout15: TLayout;
@@ -41,31 +48,21 @@ type
     Label17: TLabel;
     edtIdErp: TEdit;
     ClearEditButton13: TClearEditButton;
-    Layout3: TLayout;
-    Label5: TLabel;
-    Label7: TLabel;
-    edtCombustivel: TEdit;
-    SearchEditButton2: TSearchEditButton;
-    ClearEditButton4: TClearEditButton;
-    Label8: TLabel;
-    edtCombustivelF: TEdit;
-    ClearEditButton5: TClearEditButton;
+    BindSourceDB1: TBindSourceDB;
+    BindingsList1: TBindingsList;
+    LinkGridToDataSourceBindSourceDB1: TLinkGridToDataSource;
+    procedure btnBuscarFiltroClick(Sender: TObject);
+    procedure btnSalvarClick(Sender: TObject);
     procedure btnAddClick(Sender: TObject);
     procedure btnEditarClick(Sender: TObject);
     procedure btnDeletarClick(Sender: TObject);
-    procedure btnSalvarClick(Sender: TObject);
-    procedure FormShow(Sender: TObject);
+    procedure SearchEditButton2Click(Sender: TObject);
+    procedure SearchEditButton1Click(Sender: TObject);
     procedure StringGrid1CellDblClick(const Column: TColumn;
       const Row: Integer);
-    procedure EditButton1Click(Sender: TObject);
-    procedure edtCentroCustoClick(Sender: TObject);
-    procedure SearchEditButton1Click(Sender: TObject);
-    procedure edtNomeFiltroKeyUp(Sender: TObject; var Key: Word;
-      var KeyChar: Char; Shift: TShiftState);
-    procedure SearchEditButton2Click(Sender: TObject);
+    procedure FormShow(Sender: TObject);
     procedure FormKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char;
       Shift: TShiftState);
-    procedure btnBuscarFiltroClick(Sender: TObject);
   private
     vIdCentroCusto,vIdProduto:string;
   public
@@ -74,15 +71,17 @@ type
   end;
 
 var
-  frmLocalEstoque: TfrmLocalEstoque;
+  frmAuxLocalEstoque: TfrmAuxLocalEstoque;
 
 implementation
 
 {$R *.fmx}
 
-uses UPrincipal, UdmDB, UCentrodeCusto, UProdutos;
+uses UdmDB, UProdutos, UCentrodeCusto, UPrincipal;
 
-procedure TfrmLocalEstoque.btnAddClick(Sender: TObject);
+{ TfrmAuxLocalEstoque }
+
+procedure TfrmAuxLocalEstoque.btnAddClick(Sender: TObject);
 begin
   edtNome.Text :='';
   edtCentroCusto.Text :='';
@@ -92,12 +91,12 @@ begin
   inherited;
 end;
 
-procedure TfrmLocalEstoque.btnBuscarFiltroClick(Sender: TObject);
+procedure TfrmAuxLocalEstoque.btnBuscarFiltroClick(Sender: TObject);
 begin
- Filtro;
+ Filtro
 end;
 
-procedure TfrmLocalEstoque.btnDeletarClick(Sender: TObject);
+procedure TfrmAuxLocalEstoque.btnDeletarClick(Sender: TObject);
 begin
    MyShowMessage('Deseja Realmente Deletar esse registro?',true);
    case frmPrincipal.vMsgConfirma of
@@ -122,7 +121,7 @@ begin
    end;
 end;
 
-procedure TfrmLocalEstoque.btnEditarClick(Sender: TObject);
+procedure TfrmAuxLocalEstoque.btnEditarClick(Sender: TObject);
 begin
   edtNome.Text             := dmDB.TLocalEstoquenome.AsString;
   edtCentroCusto.Text      := dmDB.TLocalEstoquecentrocusto.AsString;
@@ -135,7 +134,7 @@ begin
   inherited;
 end;
 
-procedure TfrmLocalEstoque.btnSalvarClick(Sender: TObject);
+procedure TfrmAuxLocalEstoque.btnSalvarClick(Sender: TObject);
 begin
   if edtNome.Text.Length=0 then
   begin
@@ -189,62 +188,7 @@ begin
   end;
 end;
 
-procedure TfrmLocalEstoque.EditButton1Click(Sender: TObject);
-begin
- frmCentroCusto := TfrmCentroCusto.Create(Self);
-  try
-    frmCentroCusto.ShowModal;
-  finally
-    vIdCentroCusto       := dmDB.TCentroCustoid.AsString;
-    edtCentroCusto.Text  := dmDB.TCentroCustonome.AsString;
-  end;
-end;
-
-procedure TfrmLocalEstoque.edtCentroCustoClick(Sender: TObject);
-begin
- EditButton1Click(Sender);
-end;
-
-procedure TfrmLocalEstoque.edtNomeFiltroKeyUp(Sender: TObject; var Key: Word;
-  var KeyChar: Char; Shift: TShiftState);
-var
- vFiltro:string;
- vFiltrado:integer;
-begin
- if key=13 then
- begin
-  vFiltrado :=0;
-   if edtNomeFiltro.Text.Length>0 then
-   begin
-     vFiltro   := 'NOME LIKE '+QuotedStr('%'+edtNomeFiltro.Text+'%');
-     vFiltrado :=1;
-   end;
-   if edtCentroCustoF.Text.Length>0 then
-   begin
-    if vFiltrado=0 then
-     vFiltro   := 'CentroCusto LIKE '+QuotedStr('%'+edtCentroCustoF.Text+'%')
-    else
-     vFiltro   := vFiltro +' and CentroCusto LIKE '+QuotedStr('%'+edtCentroCustoF.Text+'%');
-    vFiltrado :=1;
-   end;
-
-   if vFiltrado=0 then
-   begin
-     dmDB.TLocalEstoque.Filtered := false;
-     dmDB.TLocalEstoque.Close;
-     dmDB.TLocalEstoque.Open;
-   end
-   else
-   begin
-     dmDB.TLocalEstoque.Filtered := false;
-     dmDB.TLocalEstoque.Filter   := vFiltro;
-     dmDB.TLocalEstoque.Filtered := true;
-   end;
-   lblFoterCout.Text := intToStr(StringGrid1.RowCount);
- end;
-end;
-
-procedure TfrmLocalEstoque.Filtro;
+procedure TfrmAuxLocalEstoque.Filtro;
 var
  vFiltro:string;
  vFiltrado:integer;
@@ -288,21 +232,21 @@ begin
  lblFoterCout.Text := intToStr(StringGrid1.RowCount);
 end;
 
-procedure TfrmLocalEstoque.FormKeyUp(Sender: TObject; var Key: Word;
+procedure TfrmAuxLocalEstoque.FormKeyUp(Sender: TObject; var Key: Word;
   var KeyChar: Char; Shift: TShiftState);
 begin
- if key=13 then
-  if tbPrincipal.TabIndex=0 then
-   Filtro;
+  if key=13 then
+   if tbPrincipal.TabIndex=0 then
+    Filtro;
 end;
 
-procedure TfrmLocalEstoque.FormShow(Sender: TObject);
+procedure TfrmAuxLocalEstoque.FormShow(Sender: TObject);
 begin
-  dmdb.AbrirLocalEstoque(vFiltro);
-  inherited;
+ dmdb.AbrirLocalEstoque(vFiltro);
+ inherited;
 end;
 
-procedure TfrmLocalEstoque.SearchEditButton1Click(Sender: TObject);
+procedure TfrmAuxLocalEstoque.SearchEditButton1Click(Sender: TObject);
 begin
   frmCentroCusto := TfrmCentroCusto.Create(Self);
   try
@@ -313,7 +257,7 @@ begin
   end;
 end;
 
-procedure TfrmLocalEstoque.SearchEditButton2Click(Sender: TObject);
+procedure TfrmAuxLocalEstoque.SearchEditButton2Click(Sender: TObject);
 begin
   frmCadProdutos := TfrmCadProdutos.Create(Self);
   try
@@ -324,11 +268,10 @@ begin
   end;
 end;
 
-procedure TfrmLocalEstoque.StringGrid1CellDblClick(const Column: TColumn;
+procedure TfrmAuxLocalEstoque.StringGrid1CellDblClick(const Column: TColumn;
   const Row: Integer);
 begin
   Close;
 end;
 
 end.
-
