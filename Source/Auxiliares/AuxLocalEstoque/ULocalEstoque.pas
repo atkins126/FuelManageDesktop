@@ -83,8 +83,10 @@ uses UdmDB, UProdutos, UCentrodeCusto, UPrincipal;
 
 procedure TfrmAuxLocalEstoque.btnAddClick(Sender: TObject);
 begin
-  edtNome.Text :='';
+  edtNome.Text        :='';
   edtCentroCusto.Text :='';
+  edtCombustivel.Text :='';
+  edtIdErp.Text       :='';
   dmDB.TLocalEstoque.Close;
   dmDB.TLocalEstoque.Open;
   dmDB.TLocalEstoque.Insert;

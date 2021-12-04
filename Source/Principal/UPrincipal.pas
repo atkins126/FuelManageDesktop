@@ -118,6 +118,10 @@ type
     Image23: TImage;
     TreeStartDiario: TTreeViewItem;
     Image15: TImage;
+    TreeColetorDados: TTreeViewItem;
+    Image24: TImage;
+    TreeLubrificacao: TTreeViewItem;
+    Image25: TImage;
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnEntrarClick(Sender: TObject);
@@ -151,6 +155,8 @@ type
     procedure TreeSaidaEstoqueClick(Sender: TObject);
     procedure TreeMovEstoqueClick(Sender: TObject);
     procedure TreeStartDiarioClick(Sender: TObject);
+    procedure TreeColetorDadosClick(Sender: TObject);
+    procedure TreeLubrificacaoClick(Sender: TObject);
   private
     vWebBrowser:TWebBrowser;
     procedure ReCreateBrowser(URL: STRING);
@@ -174,7 +180,8 @@ implementation
 uses UMsgDlg,UCadPadrao, UdmDB, UUsuarios, UAuxMarcas, UAuxGrupo, UAuxSubGrupo,
   UOperadorMaquinas, UAuxAtividadeAbastecimento, UProdutos, UCadMaquina,
   UCentrodeCusto, UAbastecimento, ULocalEstoque, UFornecedor, UEntradaEstoque,
-  USaidaEstoque, UMovEntreLocalEstoque, UStartBomba;
+  USaidaEstoque, UMovEntreLocalEstoque, UStartBomba, UDevice, uFormat,
+  UdmReport, ULubrificacao;
 
 procedure TfrmPrincipal.Notificacao(Titulo,Notificacao:string);
 var
@@ -435,6 +442,18 @@ begin
   end;
 end;
 
+procedure TfrmPrincipal.TreeLubrificacaoClick(Sender: TObject);
+begin
+ frmLubrificacao := TfrmLubrificacao.Create(Self);
+  try
+    layMnuPrincipal.Opacity :=0;
+    frmLubrificacao.ShowModal;
+  finally
+    AnimationPrincipal.Start;
+    frmLubrificacao.Free;
+  end;
+end;
+
 procedure TfrmPrincipal.TreeMaquinasClick(Sender: TObject);
 begin
  frmCadMaquinaVeiculo := TfrmCadMaquinaVeiculo.Create(Self);
@@ -598,6 +617,18 @@ begin
   finally
     AnimationPrincipal.Start;
     frmCentroCusto.Free;
+  end;
+end;
+
+procedure TfrmPrincipal.TreeColetorDadosClick(Sender: TObject);
+begin
+  frmCadColetores := TfrmCadColetores.Create(Self);
+  try
+    layMnuPrincipal.Opacity :=0;
+    frmCadColetores.ShowModal;
+  finally
+    AnimationPrincipal.Start;
+    frmCadColetores.Free;
   end;
 end;
 

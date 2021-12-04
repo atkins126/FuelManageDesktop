@@ -9048,8 +9048,8 @@ object dmReport: TdmReport
     XLSSettings.Subject = 'Report'
     XLSSettings.Title = 'Report'
     XLSSettings.WorksheetName = 'Report'
-    Left = 24
-    Top = 177
+    Left = 32
+    Top = 169
     Version = '19.04'
     mmColumnWidth = 0
     DataPipelineName = 'ppDBPListaFoto'
@@ -9057,20 +9057,8 @@ object dmReport: TdmReport
       Background.Brush.Style = bsClear
       Border.mmPadding = 0
       mmBottomOffset = 0
-      mmHeight = 37042
+      mmHeight = 31221
       mmPrintPosition = 0
-      object ppShape31: TppShape
-        DesignLayer = ppDesignLayer9
-        UserName = 'Shape2'
-        Brush.Color = clBlack
-        Pen.Style = psClear
-        mmHeight = 5823
-        mmLeft = 1058
-        mmTop = 31217
-        mmWidth = 282311
-        BandType = 0
-        LayerName = BandLayer9
-      end
       object ppLabel129: TppLabel
         DesignLayer = ppDesignLayer9
         UserName = 'Label1'
@@ -9093,7 +9081,7 @@ object dmReport: TdmReport
       end
       object ppLabel130: TppLabel
         DesignLayer = ppDesignLayer9
-        UserName = 'Label7'
+        UserName = 'Label130'
         AutoSize = False
         Border.mmPadding = 0
         Caption = 'Per'#237'odo.......:'
@@ -9126,7 +9114,7 @@ object dmReport: TdmReport
       end
       object ppImage8: TppImage
         DesignLayer = ppDesignLayer9
-        UserName = 'Image2'
+        UserName = 'Image8'
         AlignHorizontal = ahCenter
         AlignVertical = avCenter
         MaintainAspectRatio = False
@@ -10881,8 +10869,9 @@ object dmReport: TdmReport
       end
       object ppLblPeriodoLista: TppLabel
         DesignLayer = ppDesignLayer9
-        UserName = 'LblCombustivel1'
+        UserName = 'LblPeriodoLista'
         Border.mmPadding = 0
+        Caption = 'LblPeriodoLista'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -10898,173 +10887,19 @@ object dmReport: TdmReport
         BandType = 0
         LayerName = BandLayer9
       end
-      object ppLabel138: TppLabel
-        DesignLayer = ppDesignLayer9
-        UserName = 'Label122'
-        AutoSize = False
-        Border.mmPadding = 0
-        Caption = 'Data'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWhite
-        Font.Name = 'Arial'
-        Font.Size = 12
-        Font.Style = []
-        FormFieldSettings.FormSubmitInfo.SubmitMethod = fstPost
-        FormFieldSettings.FormFieldType = fftNone
-        TextAlignment = taCentered
-        Transparent = True
-        mmHeight = 5028
-        mmLeft = 1058
-        mmTop = 31482
-        mmWidth = 19315
-        BandType = 0
-        LayerName = BandLayer9
-      end
-      object ppLabel139: TppLabel
-        DesignLayer = ppDesignLayer9
-        UserName = 'Label123'
-        AutoSize = False
-        Border.mmPadding = 0
-        Caption = 'Maquina'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWhite
-        Font.Name = 'Arial'
-        Font.Size = 12
-        Font.Style = []
-        FormFieldSettings.FormSubmitInfo.SubmitMethod = fstPost
-        FormFieldSettings.FormFieldType = fftNone
-        TextAlignment = taCentered
-        Transparent = True
-        mmHeight = 5028
-        mmLeft = 60324
-        mmTop = 31482
-        mmWidth = 58510
-        BandType = 0
-        LayerName = BandLayer9
-      end
-      object ppLabel140: TppLabel
-        DesignLayer = ppDesignLayer9
-        UserName = 'Label124'
-        AutoSize = False
-        Border.mmPadding = 0
-        Caption = 'Combustivel'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWhite
-        Font.Name = 'Arial'
-        Font.Size = 12
-        Font.Style = []
-        FormFieldSettings.FormSubmitInfo.SubmitMethod = fstPost
-        FormFieldSettings.FormFieldType = fftNone
-        TextAlignment = taCentered
-        Transparent = True
-        mmHeight = 5028
-        mmLeft = 223052
-        mmTop = 31482
-        mmWidth = 30172
-        BandType = 0
-        LayerName = BandLayer9
-      end
-      object ppLabel141: TppLabel
-        DesignLayer = ppDesignLayer9
-        UserName = 'Label117'
-        AutoSize = False
-        Border.mmPadding = 0
-        Caption = 'Operador'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWhite
-        Font.Name = 'Arial'
-        Font.Size = 12
-        Font.Style = []
-        FormFieldSettings.FormSubmitInfo.SubmitMethod = fstPost
-        FormFieldSettings.FormFieldType = fftNone
-        TextAlignment = taCentered
-        Transparent = True
-        mmHeight = 5028
-        mmLeft = 119858
-        mmTop = 31485
-        mmWidth = 73329
-        BandType = 0
-        LayerName = BandLayer9
-      end
-      object ppLabel142: TppLabel
-        DesignLayer = ppDesignLayer9
-        UserName = 'Label119'
-        AutoSize = False
-        Border.mmPadding = 0
-        Caption = 'Qtde. Litros'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWhite
-        Font.Name = 'Arial'
-        Font.Size = 12
-        Font.Style = []
-        FormFieldSettings.FormSubmitInfo.SubmitMethod = fstPost
-        FormFieldSettings.FormFieldType = fftNone
-        TextAlignment = taCentered
-        Transparent = True
-        mmHeight = 5028
-        mmLeft = 254007
-        mmTop = 31485
-        mmWidth = 27517
-        BandType = 0
-        LayerName = BandLayer9
-      end
-      object ppLabel143: TppLabel
-        DesignLayer = ppDesignLayer9
-        UserName = 'Label129'
-        AutoSize = False
-        Border.mmPadding = 0
-        Caption = 'Hor'#237'metro'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWhite
-        Font.Name = 'Arial'
-        Font.Size = 12
-        Font.Style = []
-        FormFieldSettings.FormSubmitInfo.SubmitMethod = fstPost
-        FormFieldSettings.FormFieldType = fftNone
-        TextAlignment = taCentered
-        Transparent = True
-        mmHeight = 5028
-        mmLeft = 193941
-        mmTop = 31485
-        mmWidth = 28308
-        BandType = 0
-        LayerName = BandLayer9
-      end
-      object ppLabel1: TppLabel
-        DesignLayer = ppDesignLayer9
-        UserName = 'Label2'
-        AutoSize = False
-        Border.mmPadding = 0
-        Caption = 'Total de Litros:'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWhite
-        Font.Name = 'Arial'
-        Font.Size = 10
-        Font.Style = []
-        FormFieldSettings.FormSubmitInfo.SubmitMethod = fstPost
-        FormFieldSettings.FormFieldType = fftNone
-        TextAlignment = taCentered
-        Transparent = True
-        mmHeight = 5028
-        mmLeft = 230188
-        mmTop = 129917
-        mmWidth = 27517
-        BandType = 0
-        LayerName = BandLayer9
-      end
     end
     object ppDetailBand9: TppDetailBand
       Background1.Brush.Style = bsClear
       Background2.Brush.Style = bsClear
       Border.mmPadding = 0
       mmBottomOffset = 0
-      mmHeight = 75142
+      mmHeight = 75406
       mmPrintPosition = 0
       object ppShape70: TppShape
         DesignLayer = ppDesignLayer9
         UserName = 'Shape38'
         mmHeight = 63765
-        mmLeft = 175948
+        mmLeft = 1047
         mmTop = 6348
         mmWidth = 93134
         BandType = 4
@@ -11074,7 +10909,7 @@ object dmReport: TdmReport
         DesignLayer = ppDesignLayer9
         UserName = 'Shape37'
         mmHeight = 63765
-        mmLeft = 21167
+        mmLeft = 190250
         mmTop = 6348
         mmWidth = 93134
         BandType = 4
@@ -11096,9 +10931,9 @@ object dmReport: TdmReport
         VerticalAlignment = avCenter
         DataPipelineName = 'ppDBPListaFoto'
         mmHeight = 4763
-        mmLeft = 21696
+        mmLeft = 51328
         mmTop = 265
-        mmWidth = 38105
+        mmWidth = 53740
         BandType = 4
         LayerName = BandLayer9
       end
@@ -11120,7 +10955,7 @@ object dmReport: TdmReport
         mmHeight = 4763
         mmLeft = 1058
         mmTop = 265
-        mmWidth = 19315
+        mmWidth = 19845
         BandType = 4
         LayerName = BandLayer9
       end
@@ -11140,9 +10975,9 @@ object dmReport: TdmReport
         VerticalAlignment = avCenter
         DataPipelineName = 'ppDBPListaFoto'
         mmHeight = 4763
-        mmLeft = 60325
+        mmLeft = 105833
         mmTop = 265
-        mmWidth = 58510
+        mmWidth = 71495
         BandType = 4
         LayerName = BandLayer9
       end
@@ -11162,31 +10997,9 @@ object dmReport: TdmReport
         VerticalAlignment = avCenter
         DataPipelineName = 'ppDBPListaFoto'
         mmHeight = 4763
-        mmLeft = 223052
+        mmLeft = 178070
         mmTop = 265
-        mmWidth = 30152
-        BandType = 4
-        LayerName = BandLayer9
-      end
-      object ppDBText114: TppDBText
-        DesignLayer = ppDesignLayer9
-        UserName = 'DBText80'
-        Border.mmPadding = 0
-        DataField = 'operador'
-        DataPipeline = ppDBPListaFoto
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
-        Font.Name = 'Arial'
-        Font.Size = 10
-        Font.Style = []
-        TextAlignment = taCentered
-        Transparent = True
-        VerticalAlignment = avCenter
-        DataPipelineName = 'ppDBPListaFoto'
-        mmHeight = 4763
-        mmLeft = 119858
-        mmTop = 265
-        mmWidth = 73329
+        mmWidth = 33332
         BandType = 4
         LayerName = BandLayer9
       end
@@ -11206,9 +11019,9 @@ object dmReport: TdmReport
         VerticalAlignment = avCenter
         DataPipelineName = 'ppDBPListaFoto'
         mmHeight = 4763
-        mmLeft = 254007
+        mmLeft = 248185
         mmTop = 265
-        mmWidth = 27517
+        mmWidth = 33612
         BandType = 4
         LayerName = BandLayer9
       end
@@ -11231,7 +11044,7 @@ object dmReport: TdmReport
         Brush.Color = clBlack
         Pen.Style = psClear
         mmHeight = 4763
-        mmLeft = 21167
+        mmLeft = 190250
         mmTop = 70376
         mmWidth = 93134
         BandType = 4
@@ -11253,7 +11066,7 @@ object dmReport: TdmReport
         TextAlignment = taCentered
         Transparent = True
         mmHeight = 4763
-        mmLeft = 21696
+        mmLeft = 190779
         mmTop = 70376
         mmWidth = 92604
         BandType = 4
@@ -11265,7 +11078,7 @@ object dmReport: TdmReport
         Brush.Color = clBlack
         Pen.Style = psClear
         mmHeight = 4763
-        mmLeft = 175948
+        mmLeft = 1047
         mmTop = 70376
         mmWidth = 93134
         BandType = 4
@@ -11287,7 +11100,7 @@ object dmReport: TdmReport
         TextAlignment = taCentered
         Transparent = True
         mmHeight = 4763
-        mmLeft = 175948
+        mmLeft = 1047
         mmTop = 70376
         mmWidth = 93134
         BandType = 4
@@ -11309,9 +11122,9 @@ object dmReport: TdmReport
         VerticalAlignment = avCenter
         DataPipelineName = 'ppDBPListaFoto'
         mmHeight = 4763
-        mmLeft = 193940
+        mmLeft = 212197
         mmTop = 265
-        mmWidth = 28310
+        mmWidth = 35200
         BandType = 4
         LayerName = BandLayer9
       end
@@ -11324,7 +11137,7 @@ object dmReport: TdmReport
         MaintainAspectRatio = False
         Border.mmPadding = 0
         mmHeight = 63235
-        mmLeft = 21697
+        mmLeft = 190780
         mmTop = 6350
         mmWidth = 92074
         BandType = 4
@@ -11339,18 +11152,40 @@ object dmReport: TdmReport
         MaintainAspectRatio = False
         Border.mmPadding = 0
         mmHeight = 63236
-        mmLeft = 176477
+        mmLeft = 1576
         mmTop = 6350
         mmWidth = 92075
         BandType = 4
         LayerName = BandLayer9
       end
-      object ppLabel131: TppLabel
+      object ppShape18: TppShape
         DesignLayer = ppDesignLayer9
-        UserName = 'Label41'
+        UserName = 'Shape18'
+        mmHeight = 63765
+        mmLeft = 95524
+        mmTop = 6347
+        mmWidth = 93134
+        BandType = 4
+        LayerName = BandLayer9
+      end
+      object ppShape19: TppShape
+        DesignLayer = ppDesignLayer9
+        UserName = 'Shape19'
+        Brush.Color = clBlack
+        Pen.Style = psClear
+        mmHeight = 4763
+        mmLeft = 95524
+        mmTop = 70640
+        mmWidth = 93134
+        BandType = 4
+        LayerName = BandLayer9
+      end
+      object ppLabel51: TppLabel
+        DesignLayer = ppDesignLayer9
+        UserName = 'Label51'
         AutoSize = False
         Border.mmPadding = 0
-        Caption = 'Bomba'
+        Caption = 'km'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWhite
         Font.Name = 'Arial'
@@ -11360,10 +11195,47 @@ object dmReport: TdmReport
         FormFieldSettings.FormFieldType = fftNone
         TextAlignment = taCentered
         Transparent = True
-        mmHeight = 5027
-        mmLeft = 46038
-        mmTop = 30956
-        mmWidth = 38100
+        mmHeight = 4763
+        mmLeft = 95524
+        mmTop = 70640
+        mmWidth = 93134
+        BandType = 4
+        LayerName = BandLayer9
+      end
+      object ppImgKM: TppImage
+        OnPrint = ppImgHorimetroPrint
+        DesignLayer = ppDesignLayer9
+        UserName = 'ImgHorimetro1'
+        AlignHorizontal = ahCenter
+        AlignVertical = avCenter
+        MaintainAspectRatio = False
+        Border.mmPadding = 0
+        mmHeight = 63236
+        mmLeft = 96053
+        mmTop = 6347
+        mmWidth = 92075
+        BandType = 4
+        LayerName = BandLayer9
+      end
+      object ppDBText43: TppDBText
+        DesignLayer = ppDesignLayer9
+        UserName = 'DBText43'
+        Border.mmPadding = 0
+        DataField = 'hora'
+        DataPipeline = ppDBPListaFoto
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Name = 'Arial'
+        Font.Size = 10
+        Font.Style = []
+        TextAlignment = taCentered
+        Transparent = True
+        VerticalAlignment = avCenter
+        DataPipelineName = 'ppDBPListaFoto'
+        mmHeight = 4763
+        mmLeft = 21696
+        mmTop = 528
+        mmWidth = 28840
         BandType = 4
         LayerName = BandLayer9
       end
@@ -11437,9 +11309,9 @@ object dmReport: TdmReport
         Brush.Color = clBlack
         Pen.Style = psClear
         mmHeight = 4763
-        mmLeft = 1058
+        mmLeft = 248180
         mmTop = 259
-        mmWidth = 282576
+        mmWidth = 35454
         BandType = 7
         LayerName = BandLayer9
       end
@@ -11459,11 +11331,213 @@ object dmReport: TdmReport
         VerticalAlignment = avCenter
         DataPipelineName = 'ppDBPListaFoto'
         mmHeight = 4498
-        mmLeft = 257705
+        mmLeft = 248180
         mmTop = 265
-        mmWidth = 23813
+        mmWidth = 33338
         BandType = 7
         LayerName = BandLayer9
+      end
+    end
+    object ppGroup3: TppGroup
+      BreakName = 'id'
+      DataPipeline = ppDBPListaFoto
+      GroupFileSettings.NewFile = False
+      GroupFileSettings.EmailFile = False
+      OutlineSettings.CreateNode = True
+      NewPage = True
+      StartOnOddPage = False
+      UserName = 'Group3'
+      mmNewColumnThreshold = 0
+      mmNewPageThreshold = 0
+      DataPipelineName = 'ppDBPListaFoto'
+      NewFile = False
+      object ppGroupHeaderBand3: TppGroupHeaderBand
+        Background.Brush.Style = bsClear
+        Border.mmPadding = 0
+        mmBottomOffset = 0
+        mmHeight = 6615
+        mmPrintPosition = 0
+        object ppShape20: TppShape
+          DesignLayer = ppDesignLayer9
+          UserName = 'Shape20'
+          Brush.Color = clBlack
+          mmHeight = 6350
+          mmLeft = 1058
+          mmTop = 265
+          mmWidth = 282311
+          BandType = 3
+          GroupNo = 0
+          LayerName = BandLayer9
+        end
+        object ppLabel65: TppLabel
+          DesignLayer = ppDesignLayer9
+          UserName = 'Label3'
+          AutoSize = False
+          Border.mmPadding = 0
+          Caption = 'Data'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWhite
+          Font.Name = 'Arial'
+          Font.Size = 12
+          Font.Style = []
+          FormFieldSettings.FormSubmitInfo.SubmitMethod = fstPost
+          FormFieldSettings.FormFieldType = fftNone
+          TextAlignment = taCentered
+          Transparent = True
+          mmHeight = 4763
+          mmLeft = 1588
+          mmTop = 1058
+          mmWidth = 19315
+          BandType = 3
+          GroupNo = 0
+          LayerName = BandLayer9
+        end
+        object ppLabel66: TppLabel
+          DesignLayer = ppDesignLayer9
+          UserName = 'Label66'
+          AutoSize = False
+          Border.mmPadding = 0
+          Caption = 'Hora'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWhite
+          Font.Name = 'Arial'
+          Font.Size = 12
+          Font.Style = []
+          FormFieldSettings.FormSubmitInfo.SubmitMethod = fstPost
+          FormFieldSettings.FormFieldType = fftNone
+          TextAlignment = taCentered
+          Transparent = True
+          mmHeight = 4763
+          mmLeft = 21696
+          mmTop = 1058
+          mmWidth = 28840
+          BandType = 3
+          GroupNo = 0
+          LayerName = BandLayer9
+        end
+        object ppLabel67: TppLabel
+          DesignLayer = ppDesignLayer9
+          UserName = 'Label67'
+          AutoSize = False
+          Border.mmPadding = 0
+          Caption = 'Bomba'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWhite
+          Font.Name = 'Arial'
+          Font.Size = 12
+          Font.Style = []
+          FormFieldSettings.FormSubmitInfo.SubmitMethod = fstPost
+          FormFieldSettings.FormFieldType = fftNone
+          TextAlignment = taCentered
+          Transparent = True
+          mmHeight = 4763
+          mmLeft = 51329
+          mmTop = 1058
+          mmWidth = 53711
+          BandType = 3
+          GroupNo = 0
+          LayerName = BandLayer9
+        end
+        object ppLabel68: TppLabel
+          DesignLayer = ppDesignLayer9
+          UserName = 'Label68'
+          AutoSize = False
+          Border.mmPadding = 0
+          Caption = 'Maquina'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWhite
+          Font.Name = 'Arial'
+          Font.Size = 12
+          Font.Style = []
+          FormFieldSettings.FormSubmitInfo.SubmitMethod = fstPost
+          FormFieldSettings.FormFieldType = fftNone
+          TextAlignment = taCentered
+          Transparent = True
+          mmHeight = 4763
+          mmLeft = 105834
+          mmTop = 1057
+          mmWidth = 71466
+          BandType = 3
+          GroupNo = 0
+          LayerName = BandLayer9
+        end
+        object ppLabel69: TppLabel
+          DesignLayer = ppDesignLayer9
+          UserName = 'Label69'
+          AutoSize = False
+          Border.mmPadding = 0
+          Caption = 'Combustivel'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWhite
+          Font.Name = 'Arial'
+          Font.Size = 12
+          Font.Style = []
+          FormFieldSettings.FormSubmitInfo.SubmitMethod = fstPost
+          FormFieldSettings.FormFieldType = fftNone
+          TextAlignment = taCentered
+          Transparent = True
+          mmHeight = 4763
+          mmLeft = 178065
+          mmTop = 1060
+          mmWidth = 33338
+          BandType = 3
+          GroupNo = 0
+          LayerName = BandLayer9
+        end
+        object ppLabel70: TppLabel
+          DesignLayer = ppDesignLayer9
+          UserName = 'Label70'
+          AutoSize = False
+          Border.mmPadding = 0
+          Caption = 'Hor'#237'metro'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWhite
+          Font.Name = 'Arial'
+          Font.Size = 12
+          Font.Style = []
+          FormFieldSettings.FormSubmitInfo.SubmitMethod = fstPost
+          FormFieldSettings.FormFieldType = fftNone
+          TextAlignment = taCentered
+          Transparent = True
+          mmHeight = 4763
+          mmLeft = 212196
+          mmTop = 1058
+          mmWidth = 35190
+          BandType = 3
+          GroupNo = 0
+          LayerName = BandLayer9
+        end
+        object ppLabel71: TppLabel
+          DesignLayer = ppDesignLayer9
+          UserName = 'Label701'
+          AutoSize = False
+          Border.mmPadding = 0
+          Caption = 'Litros'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWhite
+          Font.Name = 'Arial'
+          Font.Size = 12
+          Font.Style = []
+          FormFieldSettings.FormSubmitInfo.SubmitMethod = fstPost
+          FormFieldSettings.FormFieldType = fftNone
+          TextAlignment = taCentered
+          Transparent = True
+          mmHeight = 4763
+          mmLeft = 248180
+          mmTop = 1058
+          mmWidth = 33602
+          BandType = 3
+          GroupNo = 0
+          LayerName = BandLayer9
+        end
+      end
+      object ppGroupFooterBand3: TppGroupFooterBand
+        Background.Brush.Style = bsClear
+        Border.mmPadding = 0
+        HideWhenOneDetail = False
+        mmBottomOffset = 0
+        mmHeight = 0
+        mmPrintPosition = 0
       end
     end
     object ppDesignLayers9: TppDesignLayers
@@ -11479,7 +11553,7 @@ object dmReport: TdmReport
   object ppDBPListaFoto: TppDBPipeline
     DataSource = dsListaFoto
     UserName = 'ppDBPListaFoto'
-    Left = 21
+    Left = 37
     Top = 114
     object ppDBPListaFotoppField1: TppField
       Alignment = taRightJustify
@@ -11487,7 +11561,7 @@ object dmReport: TdmReport
       FieldName = 'id'
       FieldLength = 0
       DataType = dtInteger
-      DisplayWidth = 10
+      DisplayWidth = 0
       Position = 0
     end
     object ppDBPListaFotoppField2: TppField
@@ -11715,36 +11789,40 @@ object dmReport: TdmReport
       Position = 25
     end
     object ppDBPListaFotoppField27: TppField
-      FieldAlias = 'localdeestoque'
-      FieldName = 'localdeestoque'
-      FieldLength = 50
-      DisplayWidth = 50
+      Alignment = taRightJustify
+      FieldAlias = 'latitude'
+      FieldName = 'latitude'
+      FieldLength = 6
+      DataType = dtDouble
+      DisplayWidth = 10
       Position = 26
     end
     object ppDBPListaFotoppField28: TppField
-      FieldAlias = 'prefixo'
-      FieldName = 'prefixo'
-      FieldLength = 20
-      DisplayWidth = 20
+      Alignment = taRightJustify
+      FieldAlias = 'longitude'
+      FieldName = 'longitude'
+      FieldLength = 6
+      DataType = dtDouble
+      DisplayWidth = 10
       Position = 27
     end
     object ppDBPListaFotoppField29: TppField
-      FieldAlias = 'produto'
-      FieldName = 'produto'
+      FieldAlias = 'localdeestoque'
+      FieldName = 'localdeestoque'
       FieldLength = 50
       DisplayWidth = 50
       Position = 28
     end
     object ppDBPListaFotoppField30: TppField
-      FieldAlias = 'operador'
-      FieldName = 'operador'
-      FieldLength = 50
-      DisplayWidth = 50
+      FieldAlias = 'prefixo'
+      FieldName = 'prefixo'
+      FieldLength = 20
+      DisplayWidth = 20
       Position = 29
     end
     object ppDBPListaFotoppField31: TppField
-      FieldAlias = 'atividade'
-      FieldName = 'atividade'
+      FieldAlias = 'produto'
+      FieldName = 'produto'
       FieldLength = 50
       DisplayWidth = 50
       Position = 30
@@ -22782,6 +22860,7 @@ object dmReport: TdmReport
     end
   end
   object TAbastecimento: TFDQuery
+    Active = True
     CachedUpdates = True
     Connection = dmdb.FDConPG
     SQL.Strings = (
@@ -22790,16 +22869,13 @@ object dmReport: TdmReport
       ' l.nome localdeEstoque,'
       ' m.prefixo,'
       ' p.nome produto,'
-      ' o.nome operador,'
-      ' a2.nome Atividade,'
       ' c.nome centrocustonome '
       'from abastecimento a '
       'join centrocusto c  on a.idcentrocusto=c.id '
       'join localestoque l on a.idlocalestoque=l.id'
       'join maquinaveiculo m on a.idmaquina=m.id'
       'join produtos p on a.combustivel = p.id '
-      'join operadormaquinas o on a.idoperador=o.id '
-      'join auxatividadeabastecimento a2 on a2.id=a.idatividade ')
+      '')
     Left = 24
     object TAbastecimentoid: TIntegerField
       FieldName = 'id'
@@ -22915,6 +22991,18 @@ object dmReport: TdmReport
       Precision = 15
       Size = 3
     end
+    object TAbastecimentolatitude: TFMTBCDField
+      FieldName = 'latitude'
+      Origin = 'latitude'
+      Precision = 9
+      Size = 6
+    end
+    object TAbastecimentolongitude: TFMTBCDField
+      FieldName = 'longitude'
+      Origin = 'longitude'
+      Precision = 9
+      Size = 6
+    end
     object TAbastecimentolocaldeestoque: TWideStringField
       AutoGenerateValue = arDefault
       FieldName = 'localdeestoque'
@@ -22930,18 +23018,6 @@ object dmReport: TdmReport
       AutoGenerateValue = arDefault
       FieldName = 'produto'
       Origin = 'produto'
-      Size = 50
-    end
-    object TAbastecimentooperador: TWideStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'operador'
-      Origin = 'operador'
-      Size = 50
-    end
-    object TAbastecimentoatividade: TWideStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'atividade'
-      Origin = 'atividade'
       Size = 50
     end
     object TAbastecimentocentrocustonome: TWideStringField
@@ -23010,8 +23086,8 @@ object dmReport: TdmReport
     XLSSettings.Subject = 'Report'
     XLSSettings.Title = 'Report'
     XLSSettings.WorksheetName = 'Report'
-    Left = 16
-    Top = 233
+    Left = 32
+    Top = 225
     Version = '19.04'
     mmColumnWidth = 0
     DataPipelineName = 'ppDBPListaFoto'

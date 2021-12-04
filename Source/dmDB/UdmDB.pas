@@ -144,19 +144,6 @@ type
     TCentroCustosyncaws: TIntegerField;
     TCentroCustostatusstr: TWideMemoField;
     TAbastecimento: TFDQuery;
-    TAbastecimentoOutros: TFDQuery;
-    TAbastecimentoOutrosid: TIntegerField;
-    TAbastecimentoOutrosstatus: TIntegerField;
-    TAbastecimentoOutrosdatareg: TSQLTimeStampField;
-    TAbastecimentoOutrosidusuario: TIntegerField;
-    TAbastecimentoOutrosdataalteracao: TSQLTimeStampField;
-    TAbastecimentoOutrosidusuarioalteracao: TIntegerField;
-    TAbastecimentoOutrosidabastecimento: TIntegerField;
-    TAbastecimentoOutrosidproduto: TIntegerField;
-    TAbastecimentoOutrosquantidade: TBCDField;
-    TAbastecimentoOutrossyncaws: TIntegerField;
-    TAbastecimentoOutrossyncfaz: TIntegerField;
-    TAbastecimentoOutrosproduto: TWideStringField;
     TEstoqueEntrada: TFDQuery;
     TEstoqueSaida: TFDQuery;
     TnotaFiscalIntem: TFDQuery;
@@ -253,38 +240,6 @@ type
     TEstoqueSaidatipostr: TWideMemoField;
     TnotaFiscalIntemlocalestoque: TWideStringField;
     TnotaFiscalIntemvaloruni: TFMTBCDField;
-    TAbastecimentoid: TIntegerField;
-    TAbastecimentostatus: TIntegerField;
-    TAbastecimentodatareg: TSQLTimeStampField;
-    TAbastecimentoidusuario: TIntegerField;
-    TAbastecimentodataalteracao: TSQLTimeStampField;
-    TAbastecimentoidusuarioalteracao: TIntegerField;
-    TAbastecimentoidlocalestoque: TIntegerField;
-    TAbastecimentoidmaquina: TIntegerField;
-    TAbastecimentoidoperador: TIntegerField;
-    TAbastecimentovolumelt: TBCDField;
-    TAbastecimentocombustivel: TIntegerField;
-    TAbastecimentodataabastecimento: TDateField;
-    TAbastecimentohora: TTimeField;
-    TAbastecimentosyncaws: TIntegerField;
-    TAbastecimentohorimetro: TBCDField;
-    TAbastecimentoidatividade: TIntegerField;
-    TAbastecimentoobs: TWideStringField;
-    TAbastecimentoimg: TBlobField;
-    TAbastecimentoimg2: TBlobField;
-    TAbastecimentoimg3: TBlobField;
-    TAbastecimentoimg4: TBlobField;
-    TAbastecimentoimg5: TBlobField;
-    TAbastecimentovalorlitro: TBCDField;
-    TAbastecimentoexterno: TIntegerField;
-    TAbastecimentoidcentrocusto: TIntegerField;
-    TAbastecimentokmatual: TBCDField;
-    TAbastecimentolocaldeestoque: TWideStringField;
-    TAbastecimentoprefixo: TWideStringField;
-    TAbastecimentoproduto: TWideStringField;
-    TAbastecimentooperador: TWideStringField;
-    TAbastecimentoatividade: TWideStringField;
-    TAbastecimentocentrocustonome: TWideStringField;
     TEstoqueSaidavalototal: TFMTBCDField;
     TMovLocalEstoque: TFDQuery;
     TMovLocalEstoqueid: TIntegerField;
@@ -337,8 +292,86 @@ type
     TLocalEstoqueidcombustivel: TIntegerField;
     TLocalEstoqueiderp: TIntegerField;
     TLocalEstoquecombustivel: TWideStringField;
+    TAbastecimentoid: TIntegerField;
+    TAbastecimentostatus: TIntegerField;
+    TAbastecimentodatareg: TSQLTimeStampField;
+    TAbastecimentoidusuario: TIntegerField;
+    TAbastecimentodataalteracao: TSQLTimeStampField;
+    TAbastecimentoidusuarioalteracao: TIntegerField;
+    TAbastecimentoidlocalestoque: TIntegerField;
+    TAbastecimentoidmaquina: TIntegerField;
+    TAbastecimentoidoperador: TIntegerField;
+    TAbastecimentovolumelt: TBCDField;
+    TAbastecimentocombustivel: TIntegerField;
+    TAbastecimentodataabastecimento: TDateField;
+    TAbastecimentohora: TTimeField;
+    TAbastecimentosyncaws: TIntegerField;
+    TAbastecimentohorimetro: TBCDField;
+    TAbastecimentoidatividade: TIntegerField;
+    TAbastecimentoobs: TWideStringField;
+    TAbastecimentoimg: TBlobField;
+    TAbastecimentoimg2: TBlobField;
+    TAbastecimentoimg3: TBlobField;
+    TAbastecimentoimg4: TBlobField;
+    TAbastecimentoimg5: TBlobField;
+    TAbastecimentovalorlitro: TBCDField;
+    TAbastecimentoexterno: TIntegerField;
+    TAbastecimentoidcentrocusto: TIntegerField;
+    TAbastecimentokmatual: TBCDField;
     TAbastecimentolatitude: TFMTBCDField;
     TAbastecimentolongitude: TFMTBCDField;
+    TAbastecimentolocaldeestoque: TWideStringField;
+    TAbastecimentoprefixo: TWideStringField;
+    TAbastecimentoproduto: TWideStringField;
+    TAbastecimentocentrocustonome: TWideStringField;
+    TAbastecimentoalerta: TIntegerField;
+    TAbastecimentodescricaoalerta: TWideMemoField;
+    TAbastecimentotipoalerta: TWideMemoField;
+    TDevice: TFDQuery;
+    TDeviceid: TIntegerField;
+    TDevicestatus: TIntegerField;
+    TDevicedatareg: TSQLTimeStampField;
+    TDeviceidusuario: TIntegerField;
+    TDevicedataalteracao: TSQLTimeStampField;
+    TDevicepatrimonio: TIntegerField;
+    TDevicemarca: TWideStringField;
+    TDevicemodelo: TWideStringField;
+    TDeviceidcentrocusto: TIntegerField;
+    TDevicesyncaws: TIntegerField;
+    TDevicecentrocusto: TWideStringField;
+    TMaquinasvolumetanque: TBCDField;
+    TLubrificacao: TFDQuery;
+    TLubrificacaoprodutos: TFDQuery;
+    TLubrificacaoid: TIntegerField;
+    TLubrificacaostatus: TIntegerField;
+    TLubrificacaodatareg: TSQLTimeStampField;
+    TLubrificacaoidusuario: TIntegerField;
+    TLubrificacaodataalteracao: TSQLTimeStampField;
+    TLubrificacaoidusuarioalteracao: TIntegerField;
+    TLubrificacaoidmaquina: TIntegerField;
+    TLubrificacaodatatroca: TDateField;
+    TLubrificacaotipo: TIntegerField;
+    TLubrificacaosyncaws: TIntegerField;
+    TLubrificacaosyncfaz: TIntegerField;
+    TLubrificacaohorimetro: TBCDField;
+    TLubrificacaokm: TBCDField;
+    TLubrificacaotipostr: TWideMemoField;
+    TLubrificacaomaquina: TWideStringField;
+    TLubrificacaoprodutosid: TIntegerField;
+    TLubrificacaoprodutosstatus: TIntegerField;
+    TLubrificacaoprodutosdatareg: TSQLTimeStampField;
+    TLubrificacaoprodutosidusuario: TIntegerField;
+    TLubrificacaoprodutosdataalteracao: TSQLTimeStampField;
+    TLubrificacaoprodutosidusuarioalteracao: TIntegerField;
+    TLubrificacaoprodutosidlubrificacao: TIntegerField;
+    TLubrificacaoprodutosidproduto: TIntegerField;
+    TLubrificacaoprodutosqtd: TBCDField;
+    TLubrificacaoprodutossyncaws: TIntegerField;
+    TLubrificacaoprodutossyncfaz: TIntegerField;
+    TLubrificacaoprodutosproduto: TWideStringField;
+    TLubrificacaoprodutoscodigofabricante: TWideStringField;
+    TLubrificacaoidcentrocusto: TIntegerField;
+    TLubrificacaocentrocusto: TWideStringField;
     procedure TUsuarioReconcileError(DataSet: TFDDataSet; E: EFDException;
       UpdateKind: TFDDatSRowState; var Action: TFDDAptReconcileAction);
     procedure TAuxMarcaReconcileError(DataSet: TFDDataSet; E: EFDException;
@@ -367,7 +400,6 @@ type
     procedure AbreMaquinas(vFiltro:string);
     function  RetornaMaxId(AnomeTabela: string): string;
     procedure AbreAbastecimento(vFiltro: string);
-    procedure AbreAbastecimentoOutros(vIdAbastecimento: string);
     procedure AbreEntradaEstoque(vFiltro:string);
     procedure AbreSaidaEstoque(vFiltro: string);
     function  RetornaCustoMedioProduto(idProduto: string): Double;
@@ -380,7 +412,14 @@ type
     function  RetornaSaldoAtualLocal(vIdLocal:string):string;
     procedure AbreStartBomba(vFiltro:String);
     procedure AbrirLocalEstoque(vFiltro:string);
-  end;
+    procedure AbrirColetores(vFiltro:string);
+    procedure AbrirLubrificacao(vFiltro:string);
+    procedure AbrirLubrificacaoprodutos(vIdLubrificacao:string);
+    function  ValidaQrCodUsado(idMaquina,qrCod:string):string;
+    function  ValidaQrCodUsadoInsert(qrCod:string):string;
+    procedure DeletaProdutoLub(idTabela:string);
+    procedure DeletaProdutoLubAll(idLub:string);
+end;
 
 var
   dmdb: Tdmdb;
@@ -648,6 +687,19 @@ begin
  end;
 end;
 
+procedure Tdmdb.AbrirColetores(vFiltro: string);
+begin
+ with TDevice,TDevice.SQL do
+ begin
+   Clear;
+   Add('select d.*,c.nome CentroCusto from devices d');
+   Add('left join centrocusto c on c.id=d.idcentrocusto');
+   Add('where d.status=1');
+   Add(vFiltro);
+   Open;
+ end;
+end;
+
 procedure Tdmdb.AbrirLocalEstoque(vFiltro: string);
 begin
  with TLocalEstoque,TLocalEstoque.SQL do
@@ -666,14 +718,41 @@ begin
  end;
 end;
 
-procedure Tdmdb.AbreAbastecimentoOutros(vIdAbastecimento: string);
+procedure Tdmdb.AbrirLubrificacao(vFiltro: string);
 begin
- with TAbastecimentoOutros,TAbastecimentoOutros.SQL do
+ with TLubrificacao,TLubrificacao.SQL do
  begin
    Clear;
-   Add('select a.*,p.nome produto from abastecimentoOutros a');
-   Add('join produtos p on a.idProduto=p.id');
-   Add('where a.status=1 and a.idabastecimento='+vIdAbastecimento);
+   Add('select');
+   Add(' l.*,');
+   Add(' case');
+   Add('  when tipo=1 then ''TROCA''');
+   Add('  when tipo=2 then ''REMONTA''');
+   Add(' end TipoStr,');
+   Add(' m.prefixo maquina,');
+   Add(' c.nome centrocusto');
+   Add('from lubrificacao l');
+   Add('join maquinaveiculo m on l.idmaquina =m.id');
+   Add('join centrocusto c on c.id=l.idcentrocusto');
+   Add('where l.status=1');
+   Add(vFiltro);
+   Open;
+ end;
+end;
+
+procedure Tdmdb.AbrirLubrificacaoprodutos(vIdLubrificacao: string);
+begin
+ with TLubrificacaoprodutos,TLubrificacaoprodutos.SQL do
+ begin
+   Clear;
+   Add('select');
+   Add('l.*,');
+   Add('p.nome produto,');
+   Add('p.codigofabricante');
+   Add('from lubrificacaoprodutos l');
+   Add('join produtos p on l.idproduto=p.id');
+   Add('where l.status=1');
+   Add('and l.idlubrificacao='+vIdLubrificacao);
    Open;
  end;
 end;
@@ -790,23 +869,28 @@ begin
    Add(' l.nome localdeEstoque,');
    Add(' m.prefixo,');
    Add(' p.nome produto,');
-   Add(' o.nome operador,');
-   Add(' a2.nome Atividade,');
    Add(' c.nome centrocustonome,');
-   Add(' a.combustivel');
+   Add(' a.combustivel,');
+   Add('case');
+   Add(' when alerta =0 then ''SEM ALERTA''');
+   Add(' when alerta =1 then ''HORÍMETRO QUEBRADO''');
+   Add(' when alerta =2 then ''HORÍMETRO TROCADO''');
+   Add(' when alerta =3 then ''HODÔMETRO QUEBRADO''');
+   Add(' when alerta =4 then ''HODÔMETRO TROCADO''');
+   Add(' when alerta =5 then ''OUTROS''');
+   Add('end tipoAlerta');
    Add('from abastecimento a');
    Add('join centrocusto c  on a.idcentrocusto=c.id');
    Add('join localestoque l on a.idlocalestoque=l.id');
    Add('join maquinaveiculo m on a.idmaquina=m.id');
    Add('join produtos p on a.combustivel = p.id');
-   Add('join operadormaquinas o on a.idoperador=o.id');
-   Add('join auxatividadeabastecimento a2 on a2.id=a.idatividade');
+//   Add('join operadormaquinas o on a.idoperador=o.id');
+//   Add('join auxatividadeabastecimento a2 on a2.id=a.idatividade');
    Add('where a.status=1');
    Add(vFiltro);
    TAbastecimento.SQL.Text;
    try
     Open;
-    TAbastecimentoOutros.Open;
    except
    on E: Exception do
     ShowMessage('Erro ao Abrir Abastecimento:'+E.Message);
@@ -820,8 +904,6 @@ begin
    Add(' l.nome localdeEstoque,');
    Add(' m.prefixo,');
    Add(' p.nome produto,');
-   Add(' o.nome operador,');
-   Add(' a2.nome Atividade,');
    Add(' c.nome centrocustonome,');
    Add(' a.combustivel');
    Add('from abastecimento a');
@@ -829,55 +911,19 @@ begin
    Add('join localestoque l on a.idlocalestoque=l.id');
    Add('join maquinaveiculo m on a.idmaquina=m.id');
    Add('join produtos p on a.combustivel = p.id');
-   Add('join operadormaquinas o on a.idoperador=o.id');
-   Add('join auxatividadeabastecimento a2 on a2.id=a.idatividade');
+//   Add('join operadormaquinas o on a.idoperador=o.id');
+//   Add('join auxatividadeabastecimento a2 on a2.id=a.idatividade');
    Add('where a.status=1');
    Add(vFiltro);
    TAbastecimento.SQL.Text;
    try
     Open;
-    TAbastecimentoOutros.Open;
    except
    on E: Exception do
     ShowMessage('Erro ao Abrir Abastecimento:'+E.Message);
    end;
  end;
 end;
-
-//procedure Tdmdb.InsereSaidaAbastecimento(dataSaida, idcentrocusto,
-//  idlocalestoque, idproduto, qtditens, idresponsavel, idAbastecimento: string);
-//var
-// vValorCustoMedio:string;
-//begin
-// with vQry,vQry.SQL do
-// begin
-//   Clear;
-//   Add('select * from histvalorproduto a');
-//   Add('where a.idproduto='+idproduto);
-//   Add('order by a.datavalor desc');
-//   Add('limit 1');
-//   Open;
-//   vValorCustoMedio := FieldByName('valoratual').AsString;
-//   if vValorCustoMedio.Length=0 then
-//    vValorCustoMedio:='0';
-//
-//   Clear;
-//   Add('insert into estoquesaida(datasaidaestoque,idcentrocusto,idlocalestoque,');
-//   Add('idproduto,qtditens,idresponsavel,valorsaida,idabastecimento,idusuario)');
-//   Add('values(');
-//   Add(dataSaida.QuotedString+',');
-//   Add(idcentrocusto+',');
-//   Add(idlocalestoque+',');
-//   Add(idproduto+',');
-//   Add(qtditens+',');
-//   Add(idresponsavel+',');
-//   Add(StringReplace(vValorCustoMedio,',','.',[rfReplaceAll])+',');
-//   Add(idAbastecimento+',');
-//   Add(dmDB.vIdUsuarioLogado);
-//   Add(')');
-//   ExecSQL;
-// end;
-//end;
 
 function Tdmdb.RetornaMaxId(AnomeTabela: string): string;
 begin
@@ -893,17 +939,6 @@ begin
  end;
 end;
 
-//procedure Tdmdb.DeletaSaidaAbastecimento(idAbastecimento: string);
-//begin
-// with vQry,vQry.SQL do
-// begin
-//  Clear;
-//  Add('update estoquesaida set status=-1,syncaws=0');
-//  Add('where idabastecimento='+idAbastecimento);
-//  ExecSQL;
-//  FDConPG.Commit;
-// end;
-//end;
 
 procedure Tdmdb.AbreMaquinas(vFiltro: string);
 begin
@@ -966,6 +1001,35 @@ begin
 
 end;
 
+procedure Tdmdb.DeletaProdutoLub(idTabela: string);
+begin
+ with vQry,vQry.SQL do
+ begin
+   Clear;
+   Add('upadate lubrificacaoprodutos set') ;
+   Add('status =-1');
+   Add(',idusuarioalteracao ='+dmdb.vIdUsuarioLogado);
+   Add(',dataalteracao=current_date');
+   Add('where id='+idTabela);
+   vQry.SQL.Text;
+   ExecSQL;
+ end;
+end;
+
+procedure Tdmdb.DeletaProdutoLubAll(idLub: string);
+begin
+ with vQry,vQry.SQL do
+ begin
+   Clear;
+   Add('upadate lubrificacaoprodutos');
+   Add('set status =-1');
+   Add(',idusuarioalteracao ='+dmdb.vIdUsuarioLogado);
+   Add(',dataalteracao=current_date');
+   Add('where idlubrificacao='+idLub);
+   ExecSQL;
+ end;
+end;
+
 function Tdmdb.LerIni(Diretorio, Chave1, Chave2,
   ValorPadrao: String): String;
 var
@@ -1025,6 +1089,40 @@ procedure Tdmdb.TUsuarioReconcileError(DataSet: TFDDataSet; E: EFDException;
   UpdateKind: TFDDatSRowState; var Action: TFDDAptReconcileAction);
 begin
  ShowMessage(E.Message)
+end;
+
+function Tdmdb.ValidaQrCodUsado(idMaquina, qrCod: string): string;
+begin
+ with vQry,vQry.SQL do
+ begin
+   Clear;
+   Add('select * from maquinaveiculo m');
+   Add('where m.status =1 and id<>'+idMaquina);
+   Add('and qrcode='+qrCod.QuotedString);
+   Open;
+   if IsEmpty then
+    Result :='OK'
+   else
+    Result :='Qr Code vinculado a maquina :'+FieldByName('Prefixo').AsString+
+    ' Edite o cadastro da mesma e limpe o Qr Code, antes de vincular a uma nova';
+ end;
+end;
+
+function Tdmdb.ValidaQrCodUsadoInsert(qrCod: string): string;
+begin
+  with vQry,vQry.SQL do
+ begin
+   Clear;
+   Add('select * from maquinaveiculo m');
+   Add('where m.status =1');
+   Add('and qrcode='+qrCod.QuotedString);
+   Open;
+   if IsEmpty then
+    Result :='OK'
+   else
+    Result :='Qr Code vinculado a maquina :'+FieldByName('Prefixo').AsString+
+    ' Edite o cadastro da mesma e limpe o Qr Code, antes de vincular a uma nova';
+ end;
 end;
 
 function Tdmdb.ValidaUsuario(Usuario, Senha: string): Boolean;

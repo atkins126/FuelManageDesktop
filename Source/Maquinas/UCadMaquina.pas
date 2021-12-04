@@ -107,6 +107,15 @@ type
     Label17: TLabel;
     edtIdErp: TEdit;
     ClearEditButton13: TClearEditButton;
+    Label8: TLabel;
+    edtQrCodeF: TEdit;
+    ClearEditButton14: TClearEditButton;
+    Label16: TLabel;
+    edtVolumeLitros: TEdit;
+    ClearEditButton15: TClearEditButton;
+    Label21: TLabel;
+    edtQrCod: TEdit;
+    ClearEditButton16: TClearEditButton;
     procedure btnAddClick(Sender: TObject);
     procedure EditButton4Click(Sender: TObject);
     procedure btnEditarClick(Sender: TObject);
@@ -135,6 +144,8 @@ type
       const Row: Integer);
     procedure edtIdErpKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char;
       Shift: TShiftState);
+    procedure edtVolumeLitrosKeyUp(Sender: TObject; var Key: Word;
+      var KeyChar: Char; Shift: TShiftState);
   private
     vIdMarca,vIdGrupo,vIdSubgrupo:string;
   public
@@ -185,6 +196,7 @@ end;
 procedure TfrmCadMaquinaVeiculo.btnConfirmaClick(Sender: TObject);
 var
   Stream: TMemoryStream;
+  vValidaQr:string;
 begin
  if edtPrefixo.Text.Length=0 then
  begin
@@ -224,9 +236,29 @@ begin
    Exit;
  end;
  if dmdb.TMaquinas.State=dsInsert then
+ begin
+  if edtQrCod.Text.Length>0 then
+  begin
+   vValidaQr  := dmdb.ValidaQrCodUsadoInsert(edtQrCod.Text);
+   if vValidaQr<>'OK' then
+   begin
+     MyShowMessage(vValidaQr,false);
+     Exit;
+   end;
+  end;
   dmdb.TMaquinasIdUsuario.AsString          := dmdb.vIdUsuarioLogado
+ end
  else
  begin
+  if edtQrCod.Text.Length>0 then
+  begin
+   vValidaQr  := dmdb.ValidaQrCodUsado(dmdb.TMaquinasId.AsString,edtQrCod.Text);
+   if vValidaQr<>'OK' then
+   begin
+     MyShowMessage(vValidaQr,false);
+     Exit;
+   end;
+  end;
   dmdb.TMaquinasIdUsuarioAlteracao.AsString := dmdb.vIdUsuarioLogado;
   dmdb.TMaquinasDataAlteracao.AsDateTime    := now;
  end;
@@ -244,6 +276,8 @@ begin
  dmdb.TMaquinastipomedicao.AsInteger        := cbxTipoMedicao.ItemIndex;
  if edtIdErp.Text.Length>0 then
   dmdb.TMaquinasiderp.AsString              := edtIdErp.Text;
+  dmdb.TMaquinasvolumetanque.AsString       := edtVolumeLitros.Text;
+  dmdb.TMaquinasqrcode.AsString             := edtQrCod.Text;
  try
   dmdb.TMaquinas.ApplyUpdates(-1);
   MyShowMessage('Maquina Cadastrado com Sucesso!',false);
@@ -288,6 +322,8 @@ begin
  vIdGrupo                     := dmdb.TMaquinasidgrupo.AsString;
  vIdSubgrupo                  := dmdb.TMaquinasidsubgrupo.AsString;
  vIdMarca                     := dmdb.TMaquinasidmarca.AsString;
+ edtGrupo.Text                := dmdb.TMaquinasgrupo.AsString;
+ edtSubGrupo.Text             := dmdb.TMaquinassubgrupo.AsString;
  edtMarca.Text                := dmdb.TMaquinasmarca.AsString;
  edtModelo.Text               := dmdb.TMaquinasmodelo.AsString;
  edtPlaca.Text                := dmdb.TMaquinasplaca.AsString;
@@ -295,6 +331,8 @@ begin
  edtChassi.Text               := dmdb.TMaquinaschassi.AsString;
  cbxTipoMedicao.ItemIndex     := dmdb.TMaquinastipomedicao.AsInteger;
  edtIdErp.Text                := dmdb.TMaquinasiderp.AsString;
+ edtVolumeLitros.Text         := dmdb.TMaquinasvolumetanque.AsString;
+ edtQrCod.Text                := dmdb.TMaquinasqrcode.AsString;
  dmdb.TMaquinas.Edit;
  inherited;
 end;
@@ -333,6 +371,15 @@ begin
  end;
 end;
 
+procedure TfrmCadMaquinaVeiculo.edtVolumeLitrosKeyUp(Sender: TObject;
+  var Key: Word; var KeyChar: Char; Shift: TShiftState);
+begin
+ if ((keyChar in ['0'..'9',','] = false) and (word(key) <> vk_back)) then
+ begin
+   KeyChar := #0;
+ end;
+end;
+
 procedure TfrmCadMaquinaVeiculo.Filtro;
 var
  vFiltro:string;
@@ -355,6 +402,10 @@ begin
 
  if edtSubGrupoF.Text.Length>0 then
    vFiltro := vFiltro+' and idsubgrupo ='+vIdSubgrupo;
+
+ if edtQrCodeF.Text.Length>0 then
+   vFiltro := vFiltro+' and qrcode ='+edtQrCodeF.Text;
+
  dmdb.AbreMaquinas(vFiltro);
  lblFoterCout.Text := intToStr(GridMaquinas.RowCount)
 end;
@@ -394,6 +445,7 @@ end;
 procedure TfrmCadMaquinaVeiculo.LimpaCampos;
 begin
  edtModelo.Text               :='';
+ edtMarca.Text                :='';
  edtGrupo.Text                :='';
  edtSubGrupo.Text             :='';
  edtPlaca.Text                :='';
@@ -401,6 +453,9 @@ begin
  cbxTipoMedicao.ItemIndex     :=-1;
  edtChassi.Text               :='';
  edtPrefixo.Text              :='';
+ edtIdErp.Text                :='';
+ edtVolumeLitros.Text         :='0';
+ edtQrCod.Text                :='';
 end;
 
 procedure TfrmCadMaquinaVeiculo.MenuItem1Click(Sender: TObject);

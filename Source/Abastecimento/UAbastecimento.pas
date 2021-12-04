@@ -21,15 +21,9 @@ type
     BindSourceDB1: TBindSourceDB;
     BindingsList1: TBindingsList;
     LinkGridToDataSourceBindSourceDB1: TLinkGridToDataSource;
-    Label4: TLabel;
-    Label5: TLabel;
-    Label6: TLabel;
-    Layout1: TLayout;
-    Layout2: TLayout;
     Layout3: TLayout;
     Layout4: TLayout;
     Layout6: TLayout;
-    Rectangle2: TRectangle;
     Layout7: TLayout;
     Layout8: TLayout;
     Label7: TLabel;
@@ -47,12 +41,9 @@ type
     Layout9: TLayout;
     ToolBar4: TToolBar;
     Label14: TLabel;
-    btnConfirmaPluvi: TRectangle;
     Label13: TLabel;
     Image10: TImage;
     BindSourceDB2: TBindSourceDB;
-    StringGrid2: TStringGrid;
-    LinkGridToDataSourceBindSourceDB2: TLinkGridToDataSource;
     layNewOutros: TLayout;
     Rectangle6: TRectangle;
     Rectangle7: TRectangle;
@@ -73,7 +64,6 @@ type
     edtAtividade: TEdit;
     ClearEditButton4: TClearEditButton;
     Layout11: TLayout;
-    btnExcluirTalhao: TRectangle;
     Layout12: TLayout;
     Layout13: TLayout;
     Label19: TLabel;
@@ -86,7 +76,6 @@ type
     Image11: TImage;
     Image12: TImage;
     Rectangle5: TRectangle;
-    Image9: TImage;
     Label23: TLabel;
     edtcombustivel: TEdit;
     ClearEditButton5: TClearEditButton;
@@ -153,7 +142,6 @@ type
       var KeyChar: Char; Shift: TShiftState);
     procedure btnAdicionarTalhaoClick(Sender: TObject);
     procedure Image13Click(Sender: TObject);
-    procedure btnExcluirTalhaoClick(Sender: TObject);
     procedure edtHorimetroKeyDown(Sender: TObject; var Key: Word;
       var KeyChar: Char; Shift: TShiftState);
     procedure edtHorimetroChangeTracking(Sender: TObject);
@@ -173,12 +161,9 @@ type
     procedure btnBuscarFiltroClick(Sender: TObject);
     procedure FormKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char;
       Shift: TShiftState);
-    procedure btnConfirmaPluClick(Sender: TObject);
     procedure Rectangle9Click(Sender: TObject);
     procedure btnConfirmaPluviClick(Sender: TObject);
     procedure SearchEditButton1Click(Sender: TObject);
-    procedure StringGrid1CellClick(const Column: TColumn; const Row: Integer);
-    procedure StringGrid1SelChanged(Sender: TObject);
     procedure btnRepConsumoClick(Sender: TObject);
     procedure Image17Click(Sender: TObject);
     procedure btnComFotoClick(Sender: TObject);
@@ -260,36 +245,6 @@ begin
  Filtro;
 end;
 
-procedure TfrmAbastecimento.btnConfirmaPluClick(Sender: TObject);
-begin
- if edtOutroProduto.Text.Length=0 then
- begin
-   MyShowMessage('Informe o produto!!',false);
-   Exit;
- end;
- if(edtQuantidade.Text.Length=0)or(edtQuantidade.Text='0') then
- begin
-   MyShowMessage('Informe a quantidade!!',false);
-   Exit;
- end;
- dmDB.TAbastecimentoOutros.Close;
- dmDB.TAbastecimentoOutros.Open;
- dmDB.TAbastecimentoOutros.Insert;
- dmDB.TAbastecimentoOutrosidabastecimento.AsInteger := dmDB.TAbastecimentoid.AsInteger;
- dmDB.TAbastecimentoOutrosidusuario.AsString        := dmDB.vIdUsuarioLogado;
- dmDB.TAbastecimentoOutrosidproduto.AsString        := vIDProduto;
- dmDB.TAbastecimentoOutrosquantidade.AsString       := edtQuantidade.Text;
- try
-  dmDB.TAbastecimentoOutros.ApplyUpdates(-1);
-  if dmDB.TAbastecimentoid.AsString.Length>0 then
-    dmDB.AbreAbastecimentoOutros(dmDB.TAbastecimentoid.AsString);
-  layNewOutros.Visible    := false;
- except
-   on E: Exception do
-    myShowMessage('Erro ao salvar Outros Produtos:'+E.Message,false);
- end;
-end;
-
 procedure TfrmAbastecimento.btnConfirmaPluviClick(Sender: TObject);
 begin
  edtOutroProduto.Text :='';
@@ -324,7 +279,7 @@ begin
  dmDB.TAbastecimento.Edit;
  edtCentroCusto.Text       := dmDB.TAbastecimentocentrocustonome.AsString;
  vIdCerntroCusto           := dmDB.TAbastecimentoidcentrocusto.AsString;
- edtAtividade.Text         := dmDB.TAbastecimentoAtividade.AsString;
+// edtAtividade.Text         := dmDB.TAbastecimentoAtividade.AsString;
  vIdAtividade              := dmDB.TAbastecimentoidAtividade.AsString;
  edtDataAbastecimento.Date := dmDB.TAbastecimentodataabastecimento.AsDateTime;
  vIdLocalEstoque           := dmDB.TAbastecimentoidlocalestoque.AsString;
@@ -332,10 +287,11 @@ begin
  vIdMaquina                := dmDB.TAbastecimentoidmaquina.AsString;
  edtMaquina.Text           := dmDB.TAbastecimentoprefixo.AsString;
  vIdOperador               := dmDB.TAbastecimentoidoperador.AsString;
- edtOperador.Text          := dmDB.TAbastecimentooperador.AsString;
+// edtOperador.Text          := dmDB.TAbastecimentooperador.AsString;
  edtVolumeLitros.Text      := dmDB.TAbastecimentovolumelt.AsString;
  edtcombustivel.Text       := dmDB.TAbastecimentoproduto.AsString;
  edtHorimetro.Text         := dmDB.TAbastecimentohorimetro.AsString;
+ edtKMAtual.Text           := dmDB.TAbastecimentokmatual.AsString;
  edtObs.Text               := dmDB.TAbastecimentoobs.AsString;
  IdCombustivel             := dmDB.TAbastecimentocombustivel.AsString;
  inherited;
@@ -371,28 +327,6 @@ begin
  end;
 end;
 
-procedure TfrmAbastecimento.btnExcluirTalhaoClick(Sender: TObject);
-begin
- MyShowMessage('Deseja Realmente Deletar esse Produto?',true);
- case frmPrincipal.vMsgConfirma of
-   1:begin
-      dmDB.TAbastecimentoOutros.Edit;
-      dmDB.TAbastecimentoOutrosStatus.AsInteger := -1;
-      dmDB.TAbastecimentoOutrosIdUsuarioAlteracao.AsString  := dmDB.vIdUsuarioLogado;
-      dmDB.TAbastecimentoOutrosDataAlteracao.AsDateTime     := now;
-      try
-        dmDB.TAbastecimentoOutros.ApplyUpdates(-1);
-        MyShowMessage('Registro Excluido com sucesso!',false);
-      except
-       on E : Exception do
-        ShowMessage(E.ClassName+' error raised, with message : '+E.Message);
-      end;
-   end;
- end;
- if dmDB.TAbastecimentoid.AsString.Length>0 then
-    dmDB.AbreAbastecimentoOutros(dmDB.TAbastecimentoid.AsString);
-end;
-
 procedure TfrmAbastecimento.btnRepConsumoClick(Sender: TObject);
 begin
  layTipoReport.Visible := true;
@@ -413,11 +347,11 @@ begin
     MyShowMessage('Informe a maquina!!',false);
     Exit;
   end;
-  if edtOperador.Text.Length=0 then
-  begin
-    MyShowMessage('Informe o Operador!!',false);
-    Exit;
-  end;
+//  if edtOperador.Text.Length=0 then
+//  begin
+//    MyShowMessage('Informe o Operador!!',false);
+//    Exit;
+//  end;
   if edtLocalEstoque.Text.Length=0  then
   begin
     MyShowMessage('Informe o Local Estoque!!',false);
@@ -434,11 +368,13 @@ begin
     MyShowMessage('Informe a quantidade de Litros!!',false);
     Exit;
   end;
-  if edtAtividade.Text.Length=0 then
-  begin
-    MyShowMessage('Informe a Atividade!!',false);
-    Exit;
-  end;
+
+//  if edtAtividade.Text.Length=0 then
+//  begin
+//    MyShowMessage('Informe a Atividade!!',false);
+//    Exit;
+//  end;
+
   if dmDB.TAbastecimento.State=dsInsert then
   begin
    dmDB.TAbastecimentoidusuario.AsString := dmDB.vIdUsuarioLogado;
@@ -479,10 +415,10 @@ begin
      end;
   end;
 
-  dmDB.TAbastecimentoidAtividade.AsString        := vIdAtividade;
+//  dmDB.TAbastecimentoidAtividade.AsString        := vIdAtividade;
   dmDB.TAbastecimentoidlocalestoque.AsString     := vIdLocalEstoque;
   dmDB.TAbastecimentoidmaquina.AsString          := vIdMaquina;
-  dmDB.TAbastecimentoidoperador.AsString         := vIdOperador;
+//  dmDB.TAbastecimentoidoperador.AsString         := vIdOperador;
   dmDB.TAbastecimentovolumelt.AsFloat            := strToFloat(edtVolumeLitros.Text);
   dmDB.TAbastecimentocombustivel.AsString        := IdCombustivel;
   dmDB.TAbastecimentodataabastecimento.AsDateTime:= edtDataAbastecimento.DateTime;
@@ -496,21 +432,6 @@ begin
    dmDB.TAbastecimentoobs.AsString := edtObs.Text;
   try
    dmDB.TAbastecimento.ApplyUpdates(-1);
-   if vEdit=0 then
-   begin
-    vIdMax := dmDB.RetornaMaxId('abastecimento');
-//    dmDB.InsereSaidaAbastecimento(
-//      FormatDateTime('yyyy-mm-dd',edtDataAbastecimento.DateTime),'1',
-//      vIdLocalEstoque,
-//      IdCombustivel,
-//      edtVolumeLitros.Text,'0',vIdMax); Trigger
-   end
-   else
-   begin
-//    dmDB.AtualizaSaidaAbastecimento(FormatDateTime('yyyy-mm-dd',
-//      edtDataAbastecimento.DateTime),'1',vIdLocalEstoque,IdCombustivel,
-//      edtVolumeLitros.Text,'0',dmDB.TAbastecimentoid.AsString); Trigger
-   end;
    Filtro;
    SomarColunasGrid;
    inherited;
@@ -646,8 +567,6 @@ begin
   vFiltro := vFiltro+' and a.combustivel='+IdCombustivel;
  if cbxBombaF.ItemIndex>0 then
   vFiltro := vFiltro+' and l.id='+vIdLocalEstoque;
- if edtAtividadeF.Text.Length>0 then
-  vFiltro := vFiltro+' and a.idatividade='+vIdAtividade;
  if edtCentroCustoF.Text.Length>0  then
   vFiltro := vFiltro+' and a.idcentrocusto ='+vIdCerntroCusto;
  vFiltro  := vFiltro+' and a.dataabastecimento between '+FormatDateTime('yyyy-mm-dd',edtDataInicio.Date).QuotedString+' and '+
@@ -666,7 +585,6 @@ end;
 procedure TfrmAbastecimento.FormShow(Sender: TObject);
 begin
   layTipoReport.Visible   := false;
-  StringGrid2.RowCount    :=0;
   layNewOutros.Visible    := false;
   edtDataInicio.Date      := DATE-7;
   edtcombustivelF.Text    := '';
@@ -859,19 +777,6 @@ begin
     lblFoterCout.Text        := '0';
     lblTotalLitrosGrid.Text      := '0,00';
   end;
-end;
-
-procedure TfrmAbastecimento.StringGrid1CellClick(const Column: TColumn;
-  const Row: Integer);
-begin
- if dmDB.TAbastecimentoid.AsString.Length>0 then
-  dmDB.AbreAbastecimentoOutros(dmDB.TAbastecimentoid.AsString);
-end;
-
-procedure TfrmAbastecimento.StringGrid1SelChanged(Sender: TObject);
-begin
- if dmDB.TAbastecimentoid.AsString.Length>0 then
-  dmDB.AbreAbastecimentoOutros(dmDB.TAbastecimentoid.AsString);
 end;
 
 end.

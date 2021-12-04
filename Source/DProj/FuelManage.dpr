@@ -24,7 +24,9 @@ uses
   USaidaEstoque in '..\Estoque\Saida\USaidaEstoque.pas' {frmSaidaEstoque},
   UMovEntreLocalEstoque in '..\Estoque\MovEntreLocal\UMovEntreLocalEstoque.pas' {frmMovLocalEstoque},
   UStartBomba in '..\StartBomba\UStartBomba.pas' {frmSatrtDiario},
-  ULocalEstoque in '..\Auxiliares\AuxLocalEstoque\ULocalEstoque.pas' {frmAuxLocalEstoque};
+  ULocalEstoque in '..\Auxiliares\AuxLocalEstoque\ULocalEstoque.pas' {frmAuxLocalEstoque},
+  UDevice in '..\Device\UDevice.pas' {frmCadColetores},
+  ULubrificacao in '..\Lubrificacao\ULubrificacao.pas' {frmLubrificacao};
 
 {$R *.res}
 
@@ -33,5 +35,7 @@ begin
   Application.CreateForm(Tdmdb, dmdb);
   Application.CreateForm(TfrmPrincipal, frmPrincipal);
   Application.CreateForm(TdmReport, dmReport);
+  Application.CreateForm(TfrmCadColetores, frmCadColetores);
+  Application.CreateForm(TfrmLubrificacao, frmLubrificacao);
   Application.Run;
 end.
