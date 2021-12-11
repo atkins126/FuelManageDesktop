@@ -372,6 +372,9 @@ type
     TLubrificacaoprodutoscodigofabricante: TWideStringField;
     TLubrificacaoidcentrocusto: TIntegerField;
     TLubrificacaocentrocusto: TWideStringField;
+    TLubrificacaoalerta: TIntegerField;
+    TLubrificacaodescricaoalerta: TWideMemoField;
+    TLubrificacaotipoalerta: TWideMemoField;
     procedure TUsuarioReconcileError(DataSet: TFDDataSet; E: EFDException;
       UpdateKind: TFDDatSRowState; var Action: TFDDAptReconcileAction);
     procedure TAuxMarcaReconcileError(DataSet: TFDDataSet; E: EFDException;
@@ -729,6 +732,14 @@ begin
    Add('  when tipo=1 then ''TROCA''');
    Add('  when tipo=2 then ''REMONTA''');
    Add(' end TipoStr,');
+   Add('case');
+   Add(' when alerta =0 then ''SEM ALERTA''');
+   Add(' when alerta =1 then ''HORÍMETRO QUEBRADO''');
+   Add(' when alerta =2 then ''HORÍMETRO TROCADO''');
+   Add(' when alerta =3 then ''HODÔMETRO QUEBRADO''');
+   Add(' when alerta =4 then ''HODÔMETRO TROCADO''');
+   Add(' when alerta =5 then ''OUTROS''');
+   Add('end tipoAlerta,');
    Add(' m.prefixo maquina,');
    Add(' c.nome centrocusto');
    Add('from lubrificacao l');
@@ -884,8 +895,6 @@ begin
    Add('join localestoque l on a.idlocalestoque=l.id');
    Add('join maquinaveiculo m on a.idmaquina=m.id');
    Add('join produtos p on a.combustivel = p.id');
-//   Add('join operadormaquinas o on a.idoperador=o.id');
-//   Add('join auxatividadeabastecimento a2 on a2.id=a.idatividade');
    Add('where a.status=1');
    Add(vFiltro);
    TAbastecimento.SQL.Text;
@@ -896,33 +905,7 @@ begin
     ShowMessage('Erro ao Abrir Abastecimento:'+E.Message);
    end;
  end;
- with dmReport.TAbastecimento,dmReport.TAbastecimento.SQL do
- begin
-   Clear;
-   Add('select');
-   Add(' a.*,');
-   Add(' l.nome localdeEstoque,');
-   Add(' m.prefixo,');
-   Add(' p.nome produto,');
-   Add(' c.nome centrocustonome,');
-   Add(' a.combustivel');
-   Add('from abastecimento a');
-   Add('join centrocusto c  on a.idcentrocusto=c.id');
-   Add('join localestoque l on a.idlocalestoque=l.id');
-   Add('join maquinaveiculo m on a.idmaquina=m.id');
-   Add('join produtos p on a.combustivel = p.id');
-//   Add('join operadormaquinas o on a.idoperador=o.id');
-//   Add('join auxatividadeabastecimento a2 on a2.id=a.idatividade');
-   Add('where a.status=1');
-   Add(vFiltro);
-   TAbastecimento.SQL.Text;
-   try
-    Open;
-   except
-   on E: Exception do
-    ShowMessage('Erro ao Abrir Abastecimento:'+E.Message);
-   end;
- end;
+ 
 end;
 
 function Tdmdb.RetornaMaxId(AnomeTabela: string): string;

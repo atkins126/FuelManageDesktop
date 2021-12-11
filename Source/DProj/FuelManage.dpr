@@ -35,7 +35,5 @@ begin
   Application.CreateForm(Tdmdb, dmdb);
   Application.CreateForm(TfrmPrincipal, frmPrincipal);
   Application.CreateForm(TdmReport, dmReport);
-  Application.CreateForm(TfrmCadColetores, frmCadColetores);
-  Application.CreateForm(TfrmLubrificacao, frmLubrificacao);
   Application.Run;
 end.

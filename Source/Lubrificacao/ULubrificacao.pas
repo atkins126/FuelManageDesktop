@@ -17,7 +17,6 @@ uses
 
 type
   TfrmLubrificacao = class(TfrmCadPadrao)
-    Layout1: TLayout;
     StringGrid2: TStringGrid;
     GroupBox1: TGroupBox;
     Label25: TLabel;
@@ -93,6 +92,10 @@ type
     mnuExcluirItem: TMenuItem;
     StringColumn2: TStringColumn;
     StringColumn3: TStringColumn;
+    btnRepConsumo: TRectangle;
+    Image10: TImage;
+    Label4: TLabel;
+    chkComAlerta: TCheckBox;
     procedure StringGrid1CellClick(const Column: TColumn; const Row: Integer);
     procedure StringGrid1SelChanged(Sender: TObject);
     procedure btnBuscarFiltroClick(Sender: TObject);
@@ -107,6 +110,7 @@ type
     procedure FormShow(Sender: TObject);
     procedure btnEditarClick(Sender: TObject);
     procedure btnDeletarClick(Sender: TObject);
+    procedure btnRepConsumoClick(Sender: TObject);
   private
     vIdMaquina,vIdCentroCusto,vIdProduto,vIdMax:string;
     vTipoMedicao:integer;
@@ -123,7 +127,7 @@ implementation
 
 {$R *.fmx}
 
-uses UdmDB, UCentrodeCusto, UProdutos, UCadMaquina, UPrincipal;
+uses UdmDB, UCentrodeCusto, UProdutos, UCadMaquina, UPrincipal, UdmReport;
 
 procedure TfrmLubrificacao.btnAddClick(Sender: TObject);
 begin
@@ -206,6 +210,22 @@ begin
   end;
   dmdb.TLubrificacao.Edit;
   inherited;
+end;
+
+procedure TfrmLubrificacao.btnRepConsumoClick(Sender: TObject);
+var
+ vFiltro:string;
+begin
+ vFiltro := '';
+ if edtNomeFiltro.Text.Length>0 then
+  vFiltro := ' and m.prefixo like '+QuotedStr('%'+edtNomeFiltro.Text+'%');
+ if edtCentroCustoF.Text.Length>0 then
+  vFiltro := ' and c.id ='+vIdCentroCusto;
+ vFiltro  := vFiltro+' and l.datatroca between '+FormatDateTime('yyyy-mm-dd',edtDataInicio.Date).QuotedString+' and '+
+ FormatDateTime('yyyy-mm-dd',edtDataFim.Date).QuotedString;
+ dmReport.AbreLubrificacao(vFiltro);
+  if dmReport.qryLubrificacao.IsEmpty then
+   MyShowMessage('Sem dados para gerar esse Relatório!',false);
 end;
 
 procedure TfrmLubrificacao.btnSalvarClick(Sender: TObject);
@@ -374,6 +394,8 @@ begin
   vFiltro := ' and c.id ='+vIdCentroCusto;
  vFiltro  := vFiltro+' and l.datatroca between '+FormatDateTime('yyyy-mm-dd',edtDataInicio.Date).QuotedString+' and '+
  FormatDateTime('yyyy-mm-dd',edtDataFim.Date).QuotedString;
+ if chkComAlerta.IsChecked then
+  vFiltro := ' and alerta>0';
  dmDB.AbrirLubrificacao(vFiltro);
  lblFoterCout.Text := IntToStr(StringGrid1.RowCount)
 end;

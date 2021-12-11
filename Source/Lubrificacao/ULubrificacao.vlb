@@ -260,11 +260,8 @@ Coordinates=1416,848,115,51
 Coordinates=10,848,157,33
 Visible=False
 
-[Layout1]
-Coordinates=80,1270,53,33
-
 []
-Coordinates=240,1270,69,33
+Coordinates=80,1270,53,33
 
 [BindSourceDB1]
 Coordinates=1332,10,96,339

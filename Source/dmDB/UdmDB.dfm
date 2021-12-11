@@ -15,7 +15,6 @@ object dmdb: Tdmdb
     Top = 16
   end
   object PgDriverLink: TFDPhysPgDriverLink
-    VendorLib = 'D:\Projetos2021\Deploy\libpq.dll'
     Left = 21
     Top = 64
   end
@@ -1684,17 +1683,25 @@ object dmdb: Tdmdb
     Connection = FDConPG
     SQL.Strings = (
       'select '
-      ' l.*,'
-      ' case '
-      '  when tipo=1 then '#39'TROCA'#39' '
-      '  when tipo=2 then '#39'REMONTA'#39'  '
-      ' end TipoStr,'
-      ' m.prefixo maquina,'
-      'c.nome centrocusto '
-      'from lubrificacao l '
-      'join maquinaveiculo m on l.idmaquina =m.id '
-      'join centrocusto c on c.id=l.idcentrocusto '
-      'where l.status=1')
+      '     l.*, '
+      '     case '
+      '      when tipo=1 then '#39'TROCA'#39' '
+      '      when tipo=2 then '#39'REMONTA'#39' '
+      '     end TipoStr, '
+      '    case '
+      '     when alerta =0 then '#39'SEM ALERTA'#39' '
+      '     when alerta =1 then '#39'HOR'#205'METRO QUEBRADO'#39' '
+      '     when alerta =2 then '#39'HOR'#205'METRO TROCADO'#39' '
+      '     when alerta =3 then '#39'HOD'#212'METRO QUEBRADO'#39' '
+      '     when alerta =4 then '#39'HOD'#212'METRO TROCADO'#39' '
+      '     when alerta =5 then '#39'OUTROS'#39' '
+      '    end tipoAlerta, '
+      '     m.prefixo maquina, '
+      '     c.nome centrocusto '
+      '    from lubrificacao l '
+      '    join maquinaveiculo m on l.idmaquina =m.id '
+      '    join centrocusto c on c.id=l.idcentrocusto '
+      '    where l.status=1 ')
     Left = 584
     Top = 144
     object TLubrificacaoid: TIntegerField
@@ -1775,6 +1782,22 @@ object dmdb: Tdmdb
       FieldName = 'centrocusto'
       Origin = 'centrocusto'
       Size = 50
+    end
+    object TLubrificacaoalerta: TIntegerField
+      FieldName = 'alerta'
+      Origin = 'alerta'
+    end
+    object TLubrificacaodescricaoalerta: TWideMemoField
+      FieldName = 'descricaoalerta'
+      Origin = 'descricaoalerta'
+      BlobType = ftWideMemo
+    end
+    object TLubrificacaotipoalerta: TWideMemoField
+      AutoGenerateValue = arDefault
+      FieldName = 'tipoalerta'
+      Origin = 'tipoalerta'
+      ReadOnly = True
+      BlobType = ftWideMemo
     end
   end
   object TLubrificacaoprodutos: TFDQuery

@@ -127,6 +127,7 @@ type
     edtLocalEstoque: TEdit;
     ClearEditButton11: TClearEditButton;
     SearchEditButton8: TSearchEditButton;
+    chkComAlerta: TCheckBox;
     procedure FormShow(Sender: TObject);
     procedure btnAddClick(Sender: TObject);
     procedure edtVolumeLitrosChangeTracking(Sender: TObject);
@@ -571,6 +572,8 @@ begin
   vFiltro := vFiltro+' and a.idcentrocusto ='+vIdCerntroCusto;
  vFiltro  := vFiltro+' and a.dataabastecimento between '+FormatDateTime('yyyy-mm-dd',edtDataInicio.Date).QuotedString+' and '+
  FormatDateTime('yyyy-mm-dd',edtDataFim.Date).QuotedString;
+ if chkComAlerta.IsChecked then
+  vFiltro := ' and alerta>0';
  dmDB.AbreAbastecimento(vFiltro);
  SomarColunasGrid;
 end;
@@ -631,9 +634,31 @@ begin
 end;
 
 procedure TfrmAbastecimento.btnSemFotoClick(Sender: TObject);
+var
+ vFiltro:string;
 begin
+ vFiltro := '';
+ if edtNomeFiltro.Text.Length>0 then
+  vFiltro := ' and c.prefixo like '+QuotedStr('%'+edtNomeFiltro.Text+'%');
+ if edtcombustivelf.Text.Length>0 then
+  vFiltro := vFiltro+' and a.combustivel='+IdCombustivel;
+ if cbxBombaF.ItemIndex>0 then
+  vFiltro := vFiltro+' and l.id='+vIdLocalEstoque;
+ if edtCentroCustoF.Text.Length>0  then
+  vFiltro := vFiltro+' and a.idcentrocusto ='+vIdCerntroCusto;
+ vFiltro  := vFiltro+' and a.dataabastecimento between '+FormatDateTime('yyyy-mm-dd',edtDataInicio.Date).QuotedString+' and '+
+ FormatDateTime('yyyy-mm-dd',edtDataFim.Date).QuotedString;
+ if chkComAlerta.IsChecked then
+  vFiltro := ' and alerta>0';
+ dmReport.AbreAbastecimento(vFiltro);
  dmReport.ppLblPeriodoSemFoto.Text := 'De '+edtDataInicio.Text+' Ate '+edtDataFim.Text;
- dmReport.ppRepListaSemFoto.print;
+ if dmReport.TAbastecimento.IsEmpty then
+ begin
+   MyShowMessage('Sem dados para gerar o relatorio!',false);
+   Exit;
+ end
+ else
+  dmReport.ppRepListaSemFoto.print;
 end;
 
 procedure TfrmAbastecimento.btnSemFotoMouseDown(Sender: TObject;
