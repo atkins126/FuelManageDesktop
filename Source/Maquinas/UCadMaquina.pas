@@ -116,6 +116,13 @@ type
     Label21: TLabel;
     edtQrCod: TEdit;
     ClearEditButton16: TClearEditButton;
+    btnExcel: TRectangle;
+    Image11: TImage;
+    Label22: TLabel;
+    btnRepConsumo: TRectangle;
+    Image1: TImage;
+    Label23: TLabel;
+    SaveDialog1: TSaveDialog;
     procedure btnAddClick(Sender: TObject);
     procedure EditButton4Click(Sender: TObject);
     procedure btnEditarClick(Sender: TObject);
@@ -146,6 +153,8 @@ type
       Shift: TShiftState);
     procedure edtVolumeLitrosKeyUp(Sender: TObject; var Key: Word;
       var KeyChar: Char; Shift: TShiftState);
+    procedure btnExcelClick(Sender: TObject);
+    procedure btnRepConsumoClick(Sender: TObject);
   private
     vIdMarca,vIdGrupo,vIdSubgrupo:string;
   public
@@ -162,7 +171,7 @@ implementation
 
 {$R *.fmx}
 
-uses UPrincipal, UAuxMarcas,uFormat,UdmDB, UAuxGrupo, UAuxSubGrupo;
+uses UPrincipal, UAuxMarcas,uFormat,UdmDB, UAuxGrupo, UAuxSubGrupo, UdmReport;
 
 procedure TfrmCadMaquinaVeiculo.btnAddClick(Sender: TObject);
 begin
@@ -278,6 +287,13 @@ begin
   dmdb.TMaquinasiderp.AsString              := edtIdErp.Text;
   dmdb.TMaquinasvolumetanque.AsString       := edtVolumeLitros.Text;
   dmdb.TMaquinasqrcode.AsString             := edtQrCod.Text;
+
+  if edtHorimetroAtual.Text.Length>0 then
+   dmdb.TMaquinashorimetroatual.AsString    := edtHorimetroAtual.Text;
+
+  if edtKmAtual.Text.Length>0 then
+   dmdb.TMaquinaskmatual.AsString           := edtKmAtual.Text;
+
  try
   dmdb.TMaquinas.ApplyUpdates(-1);
   MyShowMessage('Maquina Cadastrado com Sucesso!',false);
@@ -333,9 +349,52 @@ begin
  edtIdErp.Text                := dmdb.TMaquinasiderp.AsString;
  edtVolumeLitros.Text         := dmdb.TMaquinasvolumetanque.AsString;
  edtQrCod.Text                := dmdb.TMaquinasqrcode.AsString;
+ edtHorimetroAtual.Text       := dmdb.TMaquinashorimetroatual.AsString;
+ edtKmAtual.Text              := dmdb.TMaquinaskmatual.AsString;
  dmdb.TMaquinas.Edit;
  inherited;
 end;
+procedure TfrmCadMaquinaVeiculo.btnExcelClick(Sender: TObject);
+var
+ csv: tstringlist;
+ row, col: integer;
+ s: string;
+begin
+ if SaveDialog1.Execute then
+ begin
+   csv:= tstringlist.create;
+   for row:= 1 to GridMaquinas.rowcount do
+    begin
+     s:= '';
+     if row=1 then
+     begin
+       for col:= 0 to GridMaquinas.ColumnCount-1 do
+        s:= s + GridMaquinas.Columns[col].Header + ';';
+       csv.add(s)
+     end
+     else
+     begin
+       for col:= 0 to GridMaquinas.ColumnCount-1 do
+        s:= s + GridMaquinas.Cells[col, row-1] + ';';
+       csv.add(s)
+     end;
+    end;
+   csv.savetofile(SaveDialog1.FileName);
+   csv.free;
+ end;
+end;
+
+procedure TfrmCadMaquinaVeiculo.btnRepConsumoClick(Sender: TObject);
+begin
+ if dmdb.Tmaquinas.IsEmpty then
+ begin
+   MyShowMessage('Sem dados para gerar o relatorio!',false);
+   Exit;
+ end
+ else
+  dmReport.ppRepMaquinas.print;
+end;
+
 procedure TfrmCadMaquinaVeiculo.btnVoltarClick(Sender: TObject);
 begin
   vFilter       :=0;

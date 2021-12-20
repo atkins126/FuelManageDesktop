@@ -399,7 +399,6 @@ type
     ppLabel6: TppLabel;
     ppLabel7: TppLabel;
     ppLabel8: TppLabel;
-    ppLabel9: TppLabel;
     ppLabel10: TppLabel;
     ppLabel11: TppLabel;
     ppLabel12: TppLabel;
@@ -408,7 +407,6 @@ type
     ppDBText2: TppDBText;
     ppDBText3: TppDBText;
     ppDBText4: TppDBText;
-    ppDBText5: TppDBText;
     ppDBText6: TppDBText;
     ppLine2: TppLine;
     ppDBText7: TppDBText;
@@ -651,6 +649,129 @@ type
     ppLabel69: TppLabel;
     ppLabel70: TppLabel;
     ppLabel71: TppLabel;
+    dsLubrificacao: TDataSource;
+    ppRepLub: TppReport;
+    ppHeaderBand14: TppHeaderBand;
+    ppLabel1: TppLabel;
+    ppLabel52: TppLabel;
+    ppImage13: TppImage;
+    ppLblPeriodoLub: TppLabel;
+    ppLabel72: TppLabel;
+    ppDBText44: TppDBText;
+    ppDetailBand14: TppDetailBand;
+    ppFooterBand14: TppFooterBand;
+    ppSystemVariable27: TppSystemVariable;
+    ppSystemVariable28: TppSystemVariable;
+    ppLine19: TppLine;
+    ppSummaryBand8: TppSummaryBand;
+    ppDesignLayers14: TppDesignLayers;
+    ppDesignLayer14: TppDesignLayer;
+    ppParameterList14: TppParameterList;
+    ppDBPLub: TppDBPipeline;
+    qryLubrificacao: TFDQuery;
+    ppShape22: TppShape;
+    ppGroup4: TppGroup;
+    ppGroupHeaderBand4: TppGroupHeaderBand;
+    ppGroupFooterBand4: TppGroupFooterBand;
+    ppDBText45: TppDBText;
+    ppDBText46: TppDBText;
+    ppShape27: TppShape;
+    ppLabel75: TppLabel;
+    ppLabel76: TppLabel;
+    ppLabel64: TppLabel;
+    ppLabel73: TppLabel;
+    ppLabel74: TppLabel;
+    ppDBText47: TppDBText;
+    ppDBText48: TppDBText;
+    ppDBText49: TppDBText;
+    ppShape21: TppShape;
+    qryLubrificacaoid: TIntegerField;
+    qryLubrificacaostatus: TIntegerField;
+    qryLubrificacaodatareg: TSQLTimeStampField;
+    qryLubrificacaoidusuario: TIntegerField;
+    qryLubrificacaodataalteracao: TSQLTimeStampField;
+    qryLubrificacaoidusuarioalteracao: TIntegerField;
+    qryLubrificacaoidmaquina: TIntegerField;
+    qryLubrificacaodatatroca: TDateField;
+    qryLubrificacaotipo: TIntegerField;
+    qryLubrificacaosyncaws: TIntegerField;
+    qryLubrificacaosyncfaz: TIntegerField;
+    qryLubrificacaohorimetro: TBCDField;
+    qryLubrificacaokm: TBCDField;
+    qryLubrificacaoidcentrocusto: TIntegerField;
+    qryLubrificacaotipostr: TWideMemoField;
+    qryLubrificacaomaquina: TWideStringField;
+    qryLubrificacaocentrocusto: TWideStringField;
+    qryLubrificacaoproduto: TWideStringField;
+    qryLubrificacaoqtd: TBCDField;
+    ppDBText50: TppDBText;
+    qryLubrificacaotipoproduto: TWideMemoField;
+    ppDBText51: TppDBText;
+    ppLabel77: TppLabel;
+    ppDBText52: TppDBText;
+    qryLubrificacaoalerta: TIntegerField;
+    qryLubrificacaodescricaoalerta: TWideMemoField;
+    qryLubrificacaotipoalerta: TWideMemoField;
+    ppLabel78: TppLabel;
+    ppDBText53: TppDBText;
+    ppShape23: TppShape;
+    ppLabel9: TppLabel;
+    ppDBText5: TppDBText;
+    TAbastecimentoalerta: TIntegerField;
+    TAbastecimentodescricaoalerta: TWideMemoField;
+    TAbastecimentotipoalerta: TWideMemoField;
+    ppLabel79: TppLabel;
+    ppDBText54: TppDBText;
+    ppLabel80: TppLabel;
+    ppDBText55: TppDBText;
+    ppLabel81: TppLabel;
+    ppDBText56: TppDBText;
+    dsMaquinas: TDataSource;
+    ppRepMaquinas: TppReport;
+    ppHeaderBand15: TppHeaderBand;
+    ppLabel82: TppLabel;
+    ppLine7: TppLine;
+    ppImage14: TppImage;
+    ppDetailBand15: TppDetailBand;
+    ppDBText59: TppDBText;
+    ppFooterBand15: TppFooterBand;
+    ppSystemVariable29: TppSystemVariable;
+    ppSystemVariable30: TppSystemVariable;
+    ppLine21: TppLine;
+    ppSummaryBand14: TppSummaryBand;
+    ppDesignLayers15: TppDesignLayers;
+    ppDesignLayer15: TppDesignLayer;
+    ppParameterList15: TppParameterList;
+    ppDBPMaquinas: TppDBPipeline;
+    ppGroup5: TppGroup;
+    ppGroupHeaderBand5: TppGroupHeaderBand;
+    ppGroupFooterBand5: TppGroupFooterBand;
+    ppGroup6: TppGroup;
+    ppGroupHeaderBand6: TppGroupHeaderBand;
+    ppGroupFooterBand6: TppGroupFooterBand;
+    ppLabel84: TppLabel;
+    ppDBText57: TppDBText;
+    ppLabel83: TppLabel;
+    ppDBText72: TppDBText;
+    ppLine23: TppLine;
+    ppDBText58: TppDBText;
+    ppDBText60: TppDBText;
+    ppDBText61: TppDBText;
+    ppDBText69: TppDBText;
+    ppDBText70: TppDBText;
+    ppDBText71: TppDBText;
+    ppShape33: TppShape;
+    ppLabel89: TppLabel;
+    ppLabel85: TppLabel;
+    ppLabel86: TppLabel;
+    ppLabel87: TppLabel;
+    ppLabel88: TppLabel;
+    ppLabel90: TppLabel;
+    ppLabel94: TppLabel;
+    ppShape24: TppShape;
+    ppShape25: TppShape;
+    ppLabel95: TppLabel;
+    ppDBText73: TppDBText;
     procedure ppGroupFooterBand6BeforePrint(Sender: TObject);
     procedure ppDetailBand14BeforeGenerate(Sender: TObject);
     procedure ppImgBombaPrint(Sender: TObject);
@@ -673,6 +794,8 @@ type
     procedure AbreExtratoDiaMaquina(DataIni,DataFim,idLocal:string);
     procedure GeraExtratoCombustivel(DataIni, DataFim, LocalEstoque: string);
     procedure ReportConsumoMaquinaDia(DataIni, DataFim:TDate;IdMaquina:string);
+    procedure AbreLubrificacao(vFiltro:string);
+    procedure AbreAbastecimento(vFiltro: string);
   end;
 
 var
@@ -682,11 +805,43 @@ implementation
 
 {%CLASSGROUP 'FMX.Controls.TControl'}
 
-uses UdmDB, UPrincipal;
+uses UdmDB, UPrincipal, ULubrificacao;
 
 {$R *.dfm}
 
 { TdmReport }
+
+procedure TdmReport.AbreAbastecimento(vFiltro: string);
+begin
+ with TAbastecimento,TAbastecimento.SQL do
+ begin
+   Clear;
+   Add('select');
+   Add(' a.*,');
+   Add(' l.nome localdeEstoque,');
+   Add(' m.prefixo,');
+   Add(' p.nome produto,');
+   Add(' c.nome centrocustonome,');
+   Add(' a.combustivel,');
+   Add('case');
+   Add(' when alerta =0 then ''SEM ALERTA''');
+   Add(' when alerta =1 then ''HORÍMETRO QUEBRADO''');
+   Add(' when alerta =2 then ''HORÍMETRO TROCADO''');
+   Add(' when alerta =3 then ''HODÔMETRO QUEBRADO''');
+   Add(' when alerta =4 then ''HODÔMETRO TROCADO''');
+   Add(' when alerta =5 then ''OUTROS''');
+   Add('end tipoAlerta');
+   Add('from abastecimento a');
+   Add('join centrocusto c  on a.idcentrocusto=c.id');
+   Add('join localestoque l on a.idlocalestoque=l.id');
+   Add('join maquinaveiculo m on a.idmaquina=m.id');
+   Add('join produtos p on a.combustivel = p.id');
+   Add('where a.status=1');
+   Add(vFiltro);
+   TAbastecimento.SQL.Text;
+   Open;
+ end;
+end;
 
 procedure TdmReport.AbreEstoqueporLocal(vFiltro: string);
 begin
@@ -1322,6 +1477,49 @@ begin
    Add('order by a.id desc');
    QryListaEntrEstoque.SQL.Text;
    Open;
+ end;
+end;
+
+procedure TdmReport.AbreLubrificacao(vFiltro: string);
+begin
+ with qryLubrificacao,qryLubrificacao.SQL do
+ begin
+   Clear;
+   Add('select');
+   Add(' l.*,');
+   Add('  case');
+   Add('   when p.tipo=0 then ''Combustivel''');
+   Add('   when p.tipo=1 then ''Lubrificante''');
+   Add('   when p.tipo=2 then ''Filtro''');
+   Add(' end TipoProduto,');
+   Add(' case');
+   Add('  when l.tipo=1 then ''TROCA''');
+   Add('  when l.tipo=2 then ''REMONTA''');
+   Add(' end TipoStr,');
+   Add(' m.prefixo maquina,');
+   Add(' c.nome centrocusto,');
+   Add(' p.nome produto,');
+   Add(' l2.qtd,');
+   Add('case');
+   Add(' when alerta =0 then ''SEM ALERTA''');
+   Add(' when alerta =1 then ''HORÍMETRO QUEBRADO''');
+   Add(' when alerta =2 then ''HORÍMETRO TROCADO''');
+   Add(' when alerta =3 then ''HODÔMETRO QUEBRADO''');
+   Add(' when alerta =4 then ''HODÔMETRO TROCADO''');
+   Add(' when alerta =5 then ''OUTROS''');
+   Add('end tipoAlerta');
+   Add('from lubrificacao l');
+   Add('join maquinaveiculo m on l.idmaquina =m.id');
+   Add('join centrocusto c on c.id=l.idcentrocusto');
+   Add('join lubrificacaoprodutos l2 on l2.idlubrificacao=l.id');
+   Add('join produtos p on p.id=l2.idproduto');
+   Add('where l.status=1');
+   Add(vFiltro);
+   Open;
+   if not qryLubrificacao.IsEmpty then
+   begin
+     ppRepLub.Print;
+   end;
  end;
 end;
 

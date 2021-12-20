@@ -95,6 +95,7 @@ begin
   vFiltro := ' and patrimonio='+edtNomeFiltro.Text;
  if edtCentroCustoF.Text.Length>0 then
   vFiltro := ' and idcentrocusto='+vIdCerntroCusto;
+ dmdb.AbrirColetores(vFiltro);
 end;
 
 procedure TfrmCadColetores.btnEditarClick(Sender: TObject);
@@ -135,8 +136,8 @@ begin
    dmdb.TDeviceidcentrocusto.AsString := vIdCerntroCusto;
   try
    dmdb.TDevice.ApplyUpdates(-1);
-   btnBuscarFiltroClick(sender);
    myShowMessage('Regisrtro Atualizado com Sucesso!',false);
+   btnBuscarFiltroClick(sender);
    MudarAba(tbiLista,sender);
   except
    on E: Exception do
