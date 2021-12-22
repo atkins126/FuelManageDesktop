@@ -122,6 +122,8 @@ type
     Image24: TImage;
     TreeLubrificacao: TTreeViewItem;
     Image25: TImage;
+    TreeCompLub: TTreeViewItem;
+    Image26: TImage;
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnEntrarClick(Sender: TObject);
@@ -157,6 +159,7 @@ type
     procedure TreeStartDiarioClick(Sender: TObject);
     procedure TreeColetorDadosClick(Sender: TObject);
     procedure TreeLubrificacaoClick(Sender: TObject);
+    procedure TreeCompLubClick(Sender: TObject);
   private
     vWebBrowser:TWebBrowser;
     procedure ReCreateBrowser(URL: STRING);
@@ -168,6 +171,7 @@ type
     function  GetVersaoArq: string;
     procedure Notificacao(Titulo,Notificacao:string);
     procedure GeraDash;
+    procedure AbriGoogleMaps(Latitude,Longitude:string);
   end;
 
 var
@@ -181,7 +185,7 @@ uses UMsgDlg,UCadPadrao, UdmDB, UUsuarios, UAuxMarcas, UAuxGrupo, UAuxSubGrupo,
   UOperadorMaquinas, UAuxAtividadeAbastecimento, UProdutos, UCadMaquina,
   UCentrodeCusto, UAbastecimento, ULocalEstoque, UFornecedor, UEntradaEstoque,
   USaidaEstoque, UMovEntreLocalEstoque, UStartBomba, UDevice, uFormat,
-  UdmReport, ULubrificacao;
+  UdmReport, ULubrificacao, UAuxCompartimentoLub;
 
 procedure TfrmPrincipal.Notificacao(Titulo,Notificacao:string);
 var
@@ -244,6 +248,19 @@ begin
     dwFileVersionLS and $FFFF);
   end;
   FreeMem(VerInfo, VerInfoSize);
+end;
+
+procedure TfrmPrincipal.AbriGoogleMaps(Latitude, Longitude: string);
+begin
+ Latitude  := StringReplace(Latitude,',','.',[rfReplaceAll]);
+ Longitude := StringReplace(Longitude,',','.',[rfReplaceAll]);
+ ShellExecute(0,
+              'OPEN',
+               PChar('https://www.google.com/maps/search/'+Latitude+','+Longitude+
+               '/@'+Latitude+','+Longitude+',17z'),
+               '',
+               '',
+               SW_SHOWMAXIMIZED);
 end;
 
 procedure TfrmPrincipal.btnEntrarClick(Sender: TObject);
@@ -629,6 +646,18 @@ begin
   finally
     AnimationPrincipal.Start;
     frmCadColetores.Free;
+  end;
+end;
+
+procedure TfrmPrincipal.TreeCompLubClick(Sender: TObject);
+begin
+ frmAuxCompLub := TfrmAuxCompLub.Create(nil);
+  try
+    layMnuPrincipal.Opacity :=0;
+    frmAuxCompLub.ShowModal;
+  finally
+    AnimationPrincipal.Start;
+    frmAuxCompLub.Free;
   end;
 end;
 

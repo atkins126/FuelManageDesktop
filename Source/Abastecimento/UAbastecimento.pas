@@ -13,7 +13,7 @@ uses
   FMX.Controls.Presentation, FMX.Objects, FMX.Layouts, FMX.ListBox,
   FMX.DateTimeCtrls, Data.Bind.EngExt, Fmx.Bind.DBEngExt, Fmx.Bind.Grid,
   System.Bindings.Outputs, Fmx.Bind.Editors, Data.Bind.Components,
-  Data.Bind.Grid, Data.Bind.DBScope,Winapi.Windows;
+  Data.Bind.Grid, Data.Bind.DBScope,Winapi.Windows, FMX.Menus;
 
 type
   TfrmAbastecimento = class(TfrmCadPadrao)
@@ -128,6 +128,8 @@ type
     ClearEditButton11: TClearEditButton;
     SearchEditButton8: TSearchEditButton;
     chkComAlerta: TCheckBox;
+    PopupMenu2: TPopupMenu;
+    MenuItem1: TMenuItem;
     procedure FormShow(Sender: TObject);
     procedure btnAddClick(Sender: TObject);
     procedure edtVolumeLitrosChangeTracking(Sender: TObject);
@@ -178,6 +180,7 @@ type
     procedure btnComFotoMouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Single);
     procedure SearchEditButton8Click(Sender: TObject);
+    procedure MenuItem1Click(Sender: TObject);
   private
     vIdCerntroCusto,vIdMaquina,vIdOperador,vIdLocalEstoque,vIDProduto,vIdAtividade,
     vCombustivelEx,vBombaEx,IdCombustivel:string;
@@ -415,11 +418,8 @@ begin
       end;
      end;
   end;
-
-//  dmDB.TAbastecimentoidAtividade.AsString        := vIdAtividade;
   dmDB.TAbastecimentoidlocalestoque.AsString     := vIdLocalEstoque;
   dmDB.TAbastecimentoidmaquina.AsString          := vIdMaquina;
-//  dmDB.TAbastecimentoidoperador.AsString         := vIdOperador;
   dmDB.TAbastecimentovolumelt.AsFloat            := strToFloat(edtVolumeLitros.Text);
   dmDB.TAbastecimentocombustivel.AsString        := IdCombustivel;
   dmDB.TAbastecimentodataabastecimento.AsDateTime:= edtDataAbastecimento.DateTime;
@@ -428,11 +428,12 @@ begin
    dmDB.TAbastecimentohorimetro.AsFloat           := strToFloat(edtHorimetro.Text);
   if edtKMAtual.Text.Length>0 then
    dmDB.TAbastecimentokmatual.AsFloat             := strToFloat(edtKMAtual.Text);
-  dmDB.TAbastecimentoidcentrocusto.Asstring      := vIdCerntroCusto;
+  dmDB.TAbastecimentoidcentrocusto.Asstring       := vIdCerntroCusto;
   if edtObs.Text.Length>0 then
    dmDB.TAbastecimentoobs.AsString := edtObs.Text;
   try
    dmDB.TAbastecimento.ApplyUpdates(-1);
+   dmdb.AtaulizaSaldoAtualCustoMedio(IdCombustivel);
    Filtro;
    SomarColunasGrid;
    inherited;
@@ -563,10 +564,10 @@ var
 begin
  vFiltro := '';
  if edtNomeFiltro.Text.Length>0 then
-  vFiltro := ' and c.prefixo like '+QuotedStr('%'+edtNomeFiltro.Text+'%');
+  vFiltro := ' and prefixo like '+QuotedStr('%'+edtNomeFiltro.Text+'%');
  if edtcombustivelf.Text.Length>0 then
   vFiltro := vFiltro+' and a.combustivel='+IdCombustivel;
- if cbxBombaF.ItemIndex>0 then
+ if cbxBombaF.ItemIndex>-1 then
   vFiltro := vFiltro+' and l.id='+vIdLocalEstoque;
  if edtCentroCustoF.Text.Length>0  then
   vFiltro := vFiltro+' and a.idcentrocusto ='+vIdCerntroCusto;
@@ -575,6 +576,7 @@ begin
  if chkComAlerta.IsChecked then
   vFiltro := ' and alerta>0';
  dmDB.AbreAbastecimento(vFiltro);
+ dmReport.AbreAbastecimento(vFiltro);
  SomarColunasGrid;
 end;
 
@@ -589,7 +591,7 @@ procedure TfrmAbastecimento.FormShow(Sender: TObject);
 begin
   layTipoReport.Visible   := false;
   layNewOutros.Visible    := false;
-  edtDataInicio.Date      := DATE-7;
+  edtDataInicio.Date      := DATE-1;
   edtcombustivelF.Text    := '';
   Filtro;
   SomarColunasGrid;
@@ -615,6 +617,22 @@ begin
   layTipoReport.Visible := false;
 end;
 
+procedure TfrmAbastecimento.MenuItem1Click(Sender: TObject);
+begin
+ if (dmdb.TAbastecimentolatitude.AsString.Length=0) then
+ begin
+   MyShowMessage('Latitude esta em branco!',false);
+   Exit;
+ end;
+ if (dmdb.TAbastecimentolongitude.AsString.Length=0) then
+ begin
+   MyShowMessage('Longitude esta em branco!',false);
+   Exit;
+ end;
+ frmPrincipal.AbriGoogleMaps(dmdb.TAbastecimentolatitude.AsString,
+  dmdb.TAbastecimentolongitude.AsString);
+end;
+
 procedure TfrmAbastecimento.btnComFotoClick(Sender: TObject);
 begin
  dmReport.ppLblPeriodoLista.Text := 'De '+edtDataInicio.Text+' Ate '+edtDataFim.Text;
@@ -637,20 +655,20 @@ procedure TfrmAbastecimento.btnSemFotoClick(Sender: TObject);
 var
  vFiltro:string;
 begin
- vFiltro := '';
- if edtNomeFiltro.Text.Length>0 then
-  vFiltro := ' and c.prefixo like '+QuotedStr('%'+edtNomeFiltro.Text+'%');
- if edtcombustivelf.Text.Length>0 then
-  vFiltro := vFiltro+' and a.combustivel='+IdCombustivel;
- if cbxBombaF.ItemIndex>0 then
-  vFiltro := vFiltro+' and l.id='+vIdLocalEstoque;
- if edtCentroCustoF.Text.Length>0  then
-  vFiltro := vFiltro+' and a.idcentrocusto ='+vIdCerntroCusto;
- vFiltro  := vFiltro+' and a.dataabastecimento between '+FormatDateTime('yyyy-mm-dd',edtDataInicio.Date).QuotedString+' and '+
- FormatDateTime('yyyy-mm-dd',edtDataFim.Date).QuotedString;
- if chkComAlerta.IsChecked then
-  vFiltro := ' and alerta>0';
- dmReport.AbreAbastecimento(vFiltro);
+// vFiltro := '';
+// if edtNomeFiltro.Text.Length>0 then
+//  vFiltro := ' and c.prefixo like '+QuotedStr('%'+edtNomeFiltro.Text+'%');
+// if edtcombustivelf.Text.Length>0 then
+//  vFiltro := vFiltro+' and a.combustivel='+IdCombustivel;
+// if cbxBombaF.ItemIndex>0 then
+//  vFiltro := vFiltro+' and l.id='+vIdLocalEstoque;
+// if edtCentroCustoF.Text.Length>0  then
+//  vFiltro := vFiltro+' and a.idcentrocusto ='+vIdCerntroCusto;
+// vFiltro  := vFiltro+' and a.dataabastecimento between '+FormatDateTime('yyyy-mm-dd',edtDataInicio.Date).QuotedString+' and '+
+// FormatDateTime('yyyy-mm-dd',edtDataFim.Date).QuotedString;
+// if chkComAlerta.IsChecked then
+//  vFiltro := ' and alerta>0';
+// dmReport.AbreAbastecimento(vFiltro);
  dmReport.ppLblPeriodoSemFoto.Text := 'De '+edtDataInicio.Text+' Ate '+edtDataFim.Text;
  if dmReport.TAbastecimento.IsEmpty then
  begin
@@ -720,6 +738,15 @@ begin
   finally
     vIdCerntroCusto      := dmDB.TCentroCustoid.AsString;
     edtCentroCustoF.Text  := dmDB.TCentroCustonome.AsString;
+    dmdb.AbrirLocalEstoque('and b.id='+vIdCerntroCusto);
+    dmdb.TLocalEstoque.First;
+    cbxBombaF.Items.Clear;
+    while not dmdb.TLocalEstoque.eof do
+    begin
+      cbxBombaF.Items.AddObject(
+       dmdb.TLocalEstoquenome.AsString,TObject(dmdb.TLocalEstoqueID.AsInteger));
+      dmdb.TLocalEstoque.Next;
+    end;
   end;
 end;
 

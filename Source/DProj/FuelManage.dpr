@@ -26,7 +26,8 @@ uses
   UStartBomba in '..\StartBomba\UStartBomba.pas' {frmSatrtDiario},
   ULocalEstoque in '..\Auxiliares\AuxLocalEstoque\ULocalEstoque.pas' {frmAuxLocalEstoque},
   UDevice in '..\Device\UDevice.pas' {frmCadColetores},
-  ULubrificacao in '..\Lubrificacao\ULubrificacao.pas' {frmLubrificacao};
+  ULubrificacao in '..\Lubrificacao\ULubrificacao.pas' {frmLubrificacao},
+  UAuxCompartimentoLub in '..\Auxiliares\AuxCompartimentoLub\UAuxCompartimentoLub.pas' {frmAuxCompLub};
 
 {$R *.res}
 
@@ -35,5 +36,6 @@ begin
   Application.CreateForm(Tdmdb, dmdb);
   Application.CreateForm(TfrmPrincipal, frmPrincipal);
   Application.CreateForm(TdmReport, dmReport);
+  Application.CreateForm(TfrmAuxCompLub, frmAuxCompLub);
   Application.Run;
 end.

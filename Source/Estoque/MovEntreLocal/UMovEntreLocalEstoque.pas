@@ -103,6 +103,9 @@ type
     ClearEditButton6: TClearEditButton;
     SearchEditButton2: TSearchEditButton;
     Label16: TLabel;
+    btnListaMovFoto: TRectangle;
+    Image9: TImage;
+    Label17: TLabel;
     procedure FormShow(Sender: TObject);
     procedure EditButton2Click(Sender: TObject);
     procedure EditButton1Click(Sender: TObject);
@@ -121,6 +124,7 @@ type
     procedure EditButton4Click(Sender: TObject);
     procedure btnRepListaClick(Sender: TObject);
     procedure SearchEditButton2Click(Sender: TObject);
+    procedure btnListaMovFotoClick(Sender: TObject);
   private
     vIdLocalOrigem,vIdLocalDestino,vIdProduto:string;
     procedure Filtro;
@@ -199,10 +203,24 @@ begin
   inherited;
 end;
 
+procedure TfrmMovLocalEstoque.btnListaMovFotoClick(Sender: TObject);
+begin
+ if StringGrid1.RowCount>0 then
+ begin
+   BindSourceDB1.DataSet :=nil;
+   dmReport.ppRepMovEstoqueFoto.Print;
+   BindSourceDB1.DataSet :=dmdb.TMovLocalEstoque;
+ end;
+end;
+
 procedure TfrmMovLocalEstoque.btnRepListaClick(Sender: TObject);
 begin
  if StringGrid1.RowCount>0 then
+ begin
+  BindSourceDB1.DataSet :=nil;
   dmReport.ppRepMovEstoque.Print;
+  BindSourceDB1.DataSet :=dmdb.TMovLocalEstoque;
+ end;
 end;
 
 procedure TfrmMovLocalEstoque.btnSalvarClick(Sender: TObject);

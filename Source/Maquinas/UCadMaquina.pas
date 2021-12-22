@@ -515,6 +515,8 @@ begin
  edtIdErp.Text                :='';
  edtVolumeLitros.Text         :='0';
  edtQrCod.Text                :='';
+ edtHorimetroAtual.Text       :='';
+ edtKmAtual.Text              :='';
 end;
 
 procedure TfrmCadMaquinaVeiculo.MenuItem1Click(Sender: TObject);
