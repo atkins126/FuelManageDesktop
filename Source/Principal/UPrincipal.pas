@@ -8,7 +8,8 @@ uses
   FMX.Layouts, FMX.TabControl, FMX.Ani, FMX.ActnList, System.Actions,
   FMX.Controls.Presentation, FMX.StdCtrls, FMX.Edit, FMX.TreeView,Winapi.Windows,
   FMX.Effects, System.Notification, FMX.ScrollBox, FMX.Memo, FMX.WebBrowser,
-  shellapi, FMX.Memo.Types, View.WebCharts,Charts.Types;
+  shellapi, FMX.Memo.Types, View.WebCharts,Charts.Types, uCEFChromiumCore,
+  uCEFChromium;
 
 type
   TfrmPrincipal = class(TForm)
@@ -91,7 +92,6 @@ type
     Image8: TImage;
     WebCharts1: TWebCharts;
     Layout16: TLayout;
-    Image3: TImage;
     TreeSubGrupo: TTreeViewItem;
     Image9: TImage;
     TreeAuxOperador: TTreeViewItem;
@@ -124,6 +124,9 @@ type
     Image25: TImage;
     TreeCompLub: TTreeViewItem;
     Image26: TImage;
+    Layout8: TLayout;
+    Image3: TImage;
+    WebBrowser1: TWebBrowser;
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnEntrarClick(Sender: TObject);
@@ -160,6 +163,7 @@ type
     procedure TreeColetorDadosClick(Sender: TObject);
     procedure TreeLubrificacaoClick(Sender: TObject);
     procedure TreeCompLubClick(Sender: TObject);
+    procedure Image3Click(Sender: TObject);
   private
     vWebBrowser:TWebBrowser;
     procedure ReCreateBrowser(URL: STRING);
@@ -219,7 +223,7 @@ end;
 
 procedure TfrmPrincipal.GeraDash;
 begin
- 
+  WebBrowser1.URL :='http://13.58.255.43:3000/public/dashboard/c188ef79-1db8-47fa-a65c-6aab08356f7d';
 end;
 
 function TfrmPrincipal.GetVersaoArq: string;
@@ -248,6 +252,18 @@ begin
     dwFileVersionLS and $FFFF);
   end;
   FreeMem(VerInfo, VerInfoSize);
+end;
+
+procedure TfrmPrincipal.Image3Click(Sender: TObject);
+begin
+  TThread.CreateAnonymousThread(procedure()
+  begin
+   TThread.Synchronize(TThread.CurrentThread,
+   procedure ()
+   begin
+    GeraDash;
+   end);
+  end).Start;
 end;
 
 procedure TfrmPrincipal.AbriGoogleMaps(Latitude, Longitude: string);
@@ -360,6 +376,14 @@ begin
   layLoginAnimaiton.Visible := false;
   Timer1.Enabled            := true;
   edtUsuario.SetFocus;
+  TThread.CreateAnonymousThread(procedure()
+  begin
+   TThread.Synchronize(TThread.CurrentThread,
+   procedure ()
+   begin
+    GeraDash;
+   end);
+  end).Start;
 end;
 
 procedure TfrmPrincipal.mnuClick(Sender: TObject);

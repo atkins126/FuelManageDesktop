@@ -919,7 +919,7 @@ begin
    Add('join produtos p on a.combustivel = p.id');
    Add('where a.status=1');
    Add(vFiltro);
-   Add('order by a.dataabastecimento,a.hora');
+   Add('order by a.dataabastecimento,a.hora,a.id');
    TAbastecimento.SQL.Text;
    try
     Open;
