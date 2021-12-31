@@ -96,6 +96,18 @@ type
     Image10: TImage;
     Label4: TLabel;
     chkComAlerta: TCheckBox;
+    Label19: TLabel;
+    edtLocalEstoque: TEdit;
+    ClearEditButton11: TClearEditButton;
+    SearchEditButton8: TSearchEditButton;
+    cbxBombaF: TComboBox;
+    Label28: TLabel;
+    Label5: TLabel;
+    edtCompLub: TEdit;
+    ClearEditButton4: TClearEditButton;
+    SearchEditButton3: TSearchEditButton;
+    PopupMenu2: TPopupMenu;
+    MenuItem1: TMenuItem;
     procedure StringGrid1CellClick(const Column: TColumn; const Row: Integer);
     procedure StringGrid1SelChanged(Sender: TObject);
     procedure btnBuscarFiltroClick(Sender: TObject);
@@ -111,8 +123,13 @@ type
     procedure btnEditarClick(Sender: TObject);
     procedure btnDeletarClick(Sender: TObject);
     procedure btnRepConsumoClick(Sender: TObject);
+    procedure SearchEditButton8Click(Sender: TObject);
+    procedure cbxBombaFChange(Sender: TObject);
+    procedure cbxBombaFClick(Sender: TObject);
+    procedure SearchEditButton3Click(Sender: TObject);
+    procedure MenuItem1Click(Sender: TObject);
   private
-    vIdMaquina,vIdCentroCusto,vIdProduto,vIdMax:string;
+    vIdMaquina,vIdLocalEstoque,vIdCentroCusto,vIdProduto,vIdMax,vIdComLub:string;
     vTipoMedicao:integer;
     procedure LimpaCampos;
     procedure GridDeleteRow(sg1: TstringGrid);
@@ -127,7 +144,8 @@ implementation
 
 {$R *.fmx}
 
-uses UdmDB, UCentrodeCusto, UProdutos, UCadMaquina, UPrincipal, UdmReport;
+uses UdmDB, UCentrodeCusto, UProdutos, UCadMaquina, UPrincipal, UdmReport,
+  ULocalEstoque, UAuxCompartimentoLub;
 
 procedure TfrmLubrificacao.btnAddClick(Sender: TObject);
 begin
@@ -197,7 +215,10 @@ begin
   edtMaquina.Text       := dmdb.TLubrificacaomaquina.AsString;
   edtHorimetro.Text     := dmdb.TLubrificacaohorimetro.AsString;
   edtKMAtual.Text       := dmdb.TLubrificacaokm.AsString;
+  edtCompLub.Text       := dmdb.TLubrificacaocompartimento.AsString;
+  vIdComLub             := dmdb.TLubrificacaoidcompartimento.AsString;
   cbxTipo.ItemIndex     := cbxTipo.Items.IndexOf(dmdb.TLubrificacaotipostr.AsString);
+  edtLocalEstoque.Text  := dmdb.TLubrificacaolocalestoque.AsString;
   dmdb.TLubrificacaoprodutos.First;
   while not dmdb.TLubrificacaoprodutos.Eof do
   begin
@@ -223,6 +244,7 @@ begin
   vFiltro := ' and c.id ='+vIdCentroCusto;
  vFiltro  := vFiltro+' and l.datatroca between '+FormatDateTime('yyyy-mm-dd',edtDataInicio.Date).QuotedString+' and '+
  FormatDateTime('yyyy-mm-dd',edtDataFim.Date).QuotedString;
+ dmReport.ppLblPeriodoLub.Text:= edtDataInicio.Text +' ate '+edtDataFim.Text;
  dmReport.AbreLubrificacao(vFiltro);
   if dmReport.qryLubrificacao.IsEmpty then
    MyShowMessage('Sem dados para gerar esse Relatório!',false);
@@ -240,6 +262,11 @@ begin
  if edtMaquina.Text.Length=0 then
  begin
    MyShowMessage('Informe a Maquina!',false);
+   Exit;
+ end;
+ if edtCompLub.Text.Length=0 then
+ begin
+   MyShowMessage('Informe o Compartimento!',false);
    Exit;
  end;
  case vTipoMedicao of
@@ -283,6 +310,8 @@ begin
    dmdb.TLubrificacaoidcentrocusto.AsString   := vIdCentroCusto;
    dmdb.TLubrificacaohorimetro.AsString       := edtHorimetro.Text;
    dmdb.TLubrificacaokm.AsString              := edtKMAtual.Text;
+   dmdb.TLubrificacaoidcompartimento.AsString := vIdComLub;
+   dmdb.TLubrificacaoidlocalestoque.AsString  := vIdLocalEstoque;
    if cbxTipo.ItemIndex=0 then
     dmdb.TLubrificacaotipo.AsInteger          :=1
    else
@@ -323,6 +352,8 @@ begin
    dmdb.TLubrificacaoidcentrocusto.AsString      := vIdCentroCusto;
    dmdb.TLubrificacaohorimetro.AsString          := edtHorimetro.Text;
    dmdb.TLubrificacaokm.AsString                 := edtKMAtual.Text;
+   dmdb.TLubrificacaoidcompartimento.AsString    := vIdComLub;
+   dmdb.TLubrificacaoidlocalestoque.AsString     := vIdLocalEstoque;
    if cbxTipo.ItemIndex=0 then
     dmdb.TLubrificacaotipo.AsInteger             :=1
    else
@@ -354,6 +385,21 @@ begin
      on E : Exception do
       myShowMessage('Erro: '+E.Message,false);
    end;
+ end;
+end;
+
+procedure TfrmLubrificacao.cbxBombaFChange(Sender: TObject);
+begin
+ if cbxBombaF.ItemIndex>-1 then
+  vIdLocalEstoque := IntToStr(Integer(cbxBombaF.Items.Objects[cbxBombaF.ItemIndex]));
+end;
+
+procedure TfrmLubrificacao.cbxBombaFClick(Sender: TObject);
+begin
+if edtCentroCustoF.Text.Length=0 then
+ begin
+  MyShowMessage('Selecione o Centro de Custo antes de selecionar o Local de Estoque!',false);
+  Exit;
  end;
 end;
 
@@ -396,6 +442,10 @@ begin
  FormatDateTime('yyyy-mm-dd',edtDataFim.Date).QuotedString;
  if chkComAlerta.IsChecked then
   vFiltro := ' and alerta>0';
+
+ if cbxBombaF.ItemIndex>-1 then
+  vFiltro := vFiltro+' and l.id='+vIdLocalEstoque;
+
  dmDB.AbrirLubrificacao(vFiltro);
  lblFoterCout.Text := IntToStr(StringGrid1.RowCount)
 end;
@@ -429,6 +479,23 @@ begin
  edtProdutos.Text    :='';
  edtqtde.Text        :='0';
  StringGrid3.RowCount:=0;
+ edtLocalEstoque.Text:='';
+end;
+
+procedure TfrmLubrificacao.MenuItem1Click(Sender: TObject);
+begin
+ if (dmdb.TLubrificacaolatitude.AsString.Length=0) then
+ begin
+   MyShowMessage('Latitude esta em branco!',false);
+   Exit;
+ end;
+ if (dmdb.TLubrificacaolongitude.AsString.Length=0) then
+ begin
+   MyShowMessage('Longitude esta em branco!',false);
+   Exit;
+ end;
+ frmPrincipal.AbriGoogleMaps(dmdb.TLubrificacaolatitude.AsString,
+  dmdb.TLubrificacaolongitude.AsString);
 end;
 
 procedure TfrmLubrificacao.mnuExcluirItemClick(Sender: TObject);
@@ -475,6 +542,17 @@ begin
   end;
 end;
 
+procedure TfrmLubrificacao.SearchEditButton3Click(Sender: TObject);
+begin
+  frmAuxCompLub := TfrmAuxCompLub.Create(Self);
+  try
+    frmAuxCompLub.ShowModal;
+  finally
+    vIdComLub             := dmDB.TAuxCompLubid.AsString;
+    edtCompLub.Text       := dmDB.TAuxCompLubnome.AsString;
+  end;
+end;
+
 procedure TfrmLubrificacao.SearchEditButton4Click(Sender: TObject);
 begin
   frmCentroCusto := TfrmCentroCusto.Create(Self);
@@ -483,7 +561,37 @@ begin
   finally
     vIdCentroCusto        := dmDB.TCentroCustoid.AsString;
     edtCentroCustoF.Text  := dmDB.TCentroCustonome.AsString;
+    dmdb.AbrirLocalEstoque('and b.id='+vIdCentroCusto);
+    dmdb.TLocalEstoque.First;
+    cbxBombaF.Items.Clear;
+    while not dmdb.TLocalEstoque.eof do
+    begin
+      cbxBombaF.Items.AddObject(
+       dmdb.TLocalEstoquenome.AsString,TObject(dmdb.TLocalEstoqueID.AsInteger));
+      dmdb.TLocalEstoque.Next;
+    end;
   end;
+end;
+
+procedure TfrmLubrificacao.SearchEditButton8Click(Sender: TObject);
+begin
+ if edtCentroCusto.Text.Length=0 then
+ begin
+   MyShowMessage('Informe o Centro de Custo Antes!',false);
+   Exit;
+ end
+ else
+ begin
+  frmAuxLocalEstoque := TfrmAuxLocalEstoque.Create(Self);
+  try
+    frmAuxLocalEstoque.vFiltro :=' and idcentrocusto='+vIdCentroCusto;
+    frmAuxLocalEstoque.ShowModal;
+  finally
+    vIdLocalEstoque       := dmDB.TLocalEstoqueid.AsString;
+    edtLocalEstoque.Text  := dmDB.TLocalEstoquenome.AsString;
+  end;
+ end;
+
 end;
 
 procedure TfrmLubrificacao.StringGrid1CellClick(const Column: TColumn;

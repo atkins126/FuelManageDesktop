@@ -5,7 +5,7 @@ object dmdb: Tdmdb
   object FDConPG: TFDConnection
     Params.Strings = (
       'Database=FuelManager'
-      'Server=127.0.0.1'
+      'Server=13.58.255.43'
       'User_Name=postgres'
       'Password=Dev#110485'
       'Pooled='
@@ -1484,6 +1484,14 @@ object dmdb: Tdmdb
       Origin = 'centrocustodestino'
       Size = 50
     end
+    object TMovLocalEstoqueimg: TBlobField
+      FieldName = 'img'
+      Origin = 'img'
+    end
+    object TMovLocalEstoqueimgfim: TBlobField
+      FieldName = 'imgfim'
+      Origin = 'imgfim'
+    end
   end
   object TStartBomba: TFDQuery
     CachedUpdates = True
@@ -1697,10 +1705,16 @@ object dmdb: Tdmdb
       '     when alerta =5 then '#39'OUTROS'#39' '
       '    end tipoAlerta, '
       '     m.prefixo maquina, '
-      '     c.nome centrocusto '
+      '     c.nome centrocusto,'
+      '    ls.nome localestoque,'
+      '    cp.nome Compartimento'
       '    from lubrificacao l '
       '    join maquinaveiculo m on l.idmaquina =m.id '
       '    join centrocusto c on c.id=l.idcentrocusto '
+      '    left join localestoque ls on ls.id=l.idlocalestoque'
+      
+        '    left join compartimentolubricficacao cp on cp.id=l.idcompart' +
+        'imento '
       '    where l.status=1 ')
     Left = 584
     Top = 144
@@ -1799,6 +1813,38 @@ object dmdb: Tdmdb
       ReadOnly = True
       BlobType = ftWideMemo
     end
+    object TLubrificacaoidlocalestoque: TIntegerField
+      FieldName = 'idlocalestoque'
+      Origin = 'idlocalestoque'
+    end
+    object TLubrificacaolocalestoque: TWideStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'localestoque'
+      Origin = 'localestoque'
+      Size = 50
+    end
+    object TLubrificacaoidcompartimento: TIntegerField
+      FieldName = 'idcompartimento'
+      Origin = 'idcompartimento'
+    end
+    object TLubrificacaocompartimento: TWideStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'compartimento'
+      Origin = 'compartimento'
+      Size = 50
+    end
+    object TLubrificacaolatitude: TFMTBCDField
+      FieldName = 'latitude'
+      Origin = 'latitude'
+      Precision = 9
+      Size = 6
+    end
+    object TLubrificacaolongitude: TFMTBCDField
+      FieldName = 'longitude'
+      Origin = 'longitude'
+      Precision = 9
+      Size = 6
+    end
   end
   object TLubrificacaoprodutos: TFDQuery
     CachedUpdates = True
@@ -1871,6 +1917,49 @@ object dmdb: Tdmdb
       FieldName = 'codigofabricante'
       Origin = 'codigofabricante'
       Size = 30
+    end
+  end
+  object TAuxCompLub: TFDQuery
+    CachedUpdates = True
+    Connection = FDConPG
+    SQL.Strings = (
+      'select * from  compartimentolubricficacao'
+      'where status>-1')
+    Left = 384
+    Top = 336
+    object TAuxCompLubid: TIntegerField
+      FieldName = 'id'
+      Origin = 'id'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+    end
+    object TAuxCompLubstatus: TIntegerField
+      FieldName = 'status'
+      Origin = 'status'
+    end
+    object TAuxCompLubdatareg: TSQLTimeStampField
+      FieldName = 'datareg'
+      Origin = 'datareg'
+    end
+    object TAuxCompLubidusuario: TIntegerField
+      FieldName = 'idusuario'
+      Origin = 'idusuario'
+    end
+    object TAuxCompLubdataalteracao: TSQLTimeStampField
+      FieldName = 'dataalteracao'
+      Origin = 'dataalteracao'
+    end
+    object TAuxCompLubidusuarioalteracao: TIntegerField
+      FieldName = 'idusuarioalteracao'
+      Origin = 'idusuarioalteracao'
+    end
+    object TAuxCompLubnome: TWideStringField
+      FieldName = 'nome'
+      Origin = 'nome'
+      Size = 50
+    end
+    object TAuxCompLubsyncaws: TIntegerField
+      FieldName = 'syncaws'
+      Origin = 'syncaws'
     end
   end
 end

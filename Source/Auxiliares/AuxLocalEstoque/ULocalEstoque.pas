@@ -64,7 +64,7 @@ type
     procedure FormKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char;
       Shift: TShiftState);
   private
-    vIdCentroCusto,vIdProduto:string;
+    vIdCentroCusto,vIdProduto,vIdLocalEstoque:string;
   public
     vFiltro:string;
     procedure Filtro;

@@ -375,6 +375,23 @@ type
     TLubrificacaoalerta: TIntegerField;
     TLubrificacaodescricaoalerta: TWideMemoField;
     TLubrificacaotipoalerta: TWideMemoField;
+    TMovLocalEstoqueimg: TBlobField;
+    TMovLocalEstoqueimgfim: TBlobField;
+    TLubrificacaoidlocalestoque: TIntegerField;
+    TLubrificacaolocalestoque: TWideStringField;
+    TAuxCompLub: TFDQuery;
+    TAuxCompLubid: TIntegerField;
+    TAuxCompLubstatus: TIntegerField;
+    TAuxCompLubdatareg: TSQLTimeStampField;
+    TAuxCompLubidusuario: TIntegerField;
+    TAuxCompLubdataalteracao: TSQLTimeStampField;
+    TAuxCompLubidusuarioalteracao: TIntegerField;
+    TAuxCompLubnome: TWideStringField;
+    TAuxCompLubsyncaws: TIntegerField;
+    TLubrificacaoidcompartimento: TIntegerField;
+    TLubrificacaocompartimento: TWideStringField;
+    TLubrificacaolatitude: TFMTBCDField;
+    TLubrificacaolongitude: TFMTBCDField;
     procedure TUsuarioReconcileError(DataSet: TFDDataSet; E: EFDException;
       UpdateKind: TFDDatSRowState; var Action: TFDDAptReconcileAction);
     procedure TAuxMarcaReconcileError(DataSet: TFDDataSet; E: EFDException;
@@ -632,7 +649,7 @@ begin
    Add('join produtos c on a.idproduto=c.id');
    Add('where a.status=1');
    Add(vFiltro);
-   Add('order by a.datamov desc');
+   Add('order by a.id desc');
    Open;
  end;
 end;
@@ -685,7 +702,7 @@ begin
    Add('join centrocusto c on c.id=l.idcentrocusto');
    Add('where s.status>-1');
    Add(vFiltro);
-   Add('order by dataastart desc ');
+   Add('order by id desc ');
    Open;
  end;
 end;
@@ -741,12 +758,17 @@ begin
    Add(' when alerta =5 then ''OUTROS''');
    Add('end tipoAlerta,');
    Add(' m.prefixo maquina,');
-   Add(' c.nome centrocusto');
+   Add(' c.nome centrocusto,');
+   Add(' ls.nome localestoque,');
+   Add(' cp.nome Compartimento');
    Add('from lubrificacao l');
    Add('join maquinaveiculo m on l.idmaquina =m.id');
    Add('join centrocusto c on c.id=l.idcentrocusto');
+   Add('left join localestoque ls on ls.id=l.idlocalestoque');
+   Add('left join compartimentolubricficacao cp on cp.id=l.idcompartimento ');
    Add('where l.status=1');
    Add(vFiltro);
+   Add('order by l.id desc');
    Open;
  end;
 end;
@@ -897,6 +919,7 @@ begin
    Add('join produtos p on a.combustivel = p.id');
    Add('where a.status=1');
    Add(vFiltro);
+   Add('order by a.dataabastecimento,a.hora,a.id');
    TAbastecimento.SQL.Text;
    try
     Open;

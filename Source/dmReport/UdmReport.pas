@@ -595,7 +595,6 @@ type
     ppLabel30: TppLabel;
     ppLabel23: TppLabel;
     ppLabel49: TppLabel;
-    ppShape15: TppShape;
     TAbastecimentoid: TIntegerField;
     TAbastecimentostatus: TIntegerField;
     TAbastecimentodatareg: TSQLTimeStampField;
@@ -772,12 +771,72 @@ type
     ppShape25: TppShape;
     ppLabel95: TppLabel;
     ppDBText73: TppDBText;
+    ppRepMovEstoqueFoto: TppReport;
+    ppHeaderBand16: TppHeaderBand;
+    ppLabel101: TppLabel;
+    ppImage16: TppImage;
+    ppDetailBand16: TppDetailBand;
+    ppLine28: TppLine;
+    ppDBText76: TppDBText;
+    ppDBText77: TppDBText;
+    ppDBText78: TppDBText;
+    ppDBText79: TppDBText;
+    ppDBText80: TppDBText;
+    ppDBText87: TppDBText;
+    ppLabel102: TppLabel;
+    ppFooterBand16: TppFooterBand;
+    ppSystemVariable31: TppSystemVariable;
+    ppSystemVariable32: TppSystemVariable;
+    ppLine30: TppLine;
+    ppGroup7: TppGroup;
+    ppGroupHeaderBand7: TppGroupHeaderBand;
+    ppShape28: TppShape;
+    ppLabel103: TppLabel;
+    ppLabel115: TppLabel;
+    ppLabel117: TppLabel;
+    ppShape31: TppShape;
+    ppLabel118: TppLabel;
+    ppDBText88: TppDBText;
+    ppLabel119: TppLabel;
+    ppLabel120: TppLabel;
+    ppGroupFooterBand7: TppGroupFooterBand;
+    ppShape32: TppShape;
+    ppDBCalc3: TppDBCalc;
+    ppDesignLayers16: TppDesignLayers;
+    ppDesignLayer16: TppDesignLayer;
+    ppParameterList16: TppParameterList;
+    ppShape35: TppShape;
+    ppShape36: TppShape;
+    ppLine32: TppLine;
+    ppShape37: TppShape;
+    ppLabel121: TppLabel;
+    ppShape38: TppShape;
+    ppLabel122: TppLabel;
+    ppimgTotalFim: TppImage;
+    ppimgTotalIni: TppImage;
+    qryLubrificacaoidlocalestoque: TIntegerField;
+    qryLubrificacaolocalestoque: TWideStringField;
+    ppLabel123: TppLabel;
+    ppDBText89: TppDBText;
+    qryLubrificacaoidcompartimento: TIntegerField;
+    qryLubrificacaocompartimento: TWideStringField;
+    ppLabel124: TppLabel;
+    ppDBText90: TppDBText;
+    ppLabel125: TppLabel;
+    ppLabel126: TppLabel;
+    ppDBText91: TppDBText;
+    ppDBText92: TppDBText;
+    ppLine36: TppLine;
+    ppLabel127: TppLabel;
+    ppLabel128: TppLabel;
+    ppDBText93: TppDBText;
+    ppDBText94: TppDBText;
     procedure ppGroupFooterBand6BeforePrint(Sender: TObject);
     procedure ppDetailBand14BeforeGenerate(Sender: TObject);
-    procedure ppImgBombaPrint(Sender: TObject);
-    procedure ppImgHorimetroPrint(Sender: TObject);
     procedure imgStartPrint(Sender: TObject);
     procedure imgStopPrint(Sender: TObject);
+    procedure ppDetailBand9BeforePrint(Sender: TObject);
+    procedure ppDetailBand16BeforePrint(Sender: TObject);
   private
     function  BitmapFromBase64(const base64: string): TBitmap;
 
@@ -838,6 +897,7 @@ begin
    Add('join produtos p on a.combustivel = p.id');
    Add('where a.status=1');
    Add(vFiltro);
+   Add('order by a.dataabastecimento,a.hora,a.id');
    TAbastecimento.SQL.Text;
    Open;
  end;
@@ -1300,6 +1360,90 @@ begin
 //  ppImgeFim.Picture.Bitmap := nil;
 end;
 
+procedure TdmReport.ppDetailBand16BeforePrint(Sender: TObject);
+var
+  objImage : TStringStream;
+  ms: TMemoryStream;
+  vImgIni, vImgFim: TImage;
+begin
+   if dmdb.TMovLocalEstoqueimg.AsString.Length>0 then
+   begin
+    vImgIni := TImage.Create(nil);
+    MS := TMemoryStream.Create;
+    vImgIni.Bitmap := BitmapFromBase64(dmdb.TMovLocalEstoqueimg.AsString);
+    vImgIni.Bitmap.SaveToStream(MS);
+    MS.Position := 0;
+    ppimgTotalIni.Picture.LoadFromStream(MS);
+    vImgIni.Free;
+    MS.Free;
+   end
+   else
+    ppimgTotalIni.Picture.Bitmap := nil;
+
+  if dmdb.TMovLocalEstoqueimgFim.AsString.Length>0 then
+   begin
+    vImgFim := TImage.Create(nil);
+    MS := TMemoryStream.Create;
+    vImgFim.Bitmap := BitmapFromBase64(dmdb.TMovLocalEstoqueimgFim.AsString);
+    vImgFim.Bitmap.SaveToStream(MS);
+    MS.Position := 0;
+    ppimgTotalFim.Picture.LoadFromStream(MS);
+    vImgFim.Free;
+    MS.Free;
+   end
+   else
+    ppimgTotalFim.Picture.Bitmap := nil;
+end;
+
+procedure TdmReport.ppDetailBand9BeforePrint(Sender: TObject);
+var
+  objImage : TStringStream;
+  ms: TMemoryStream;
+  vImgBomba, vImgHorimetro,vHodometro : TImage;
+begin
+   if TAbastecimentoimg.AsString.Length>0 then
+   begin
+    vImgHorimetro := TImage.Create(nil);
+    MS := TMemoryStream.Create;
+    vImgHorimetro.Bitmap := BitmapFromBase64(TAbastecimentoimg.AsString);
+    vImgHorimetro.Bitmap.SaveToStream(MS);
+    MS.Position := 0;
+    ppImgHorimetro.Picture.LoadFromStream(MS);
+    vImgHorimetro.Free;
+    MS.Free;
+   end
+   else
+    ppImgHorimetro.Picture.Bitmap := nil;
+
+  if TAbastecimentoimg2.AsString.Length>0 then
+   begin
+    vImgBomba := TImage.Create(nil);
+    MS := TMemoryStream.Create;
+    vImgBomba.Bitmap := BitmapFromBase64(TAbastecimentoimg2.AsString);
+    vImgBomba.Bitmap.SaveToStream(MS);
+    MS.Position := 0;
+    ppImgBomba.Picture.LoadFromStream(MS);
+    vImgBomba.Free;
+    MS.Free;
+   end
+   else
+    ppImgBomba.Picture.Bitmap := nil;
+
+   if TAbastecimentoimg3.AsString.Length>0 then
+   begin
+    vHodometro:= TImage.Create(nil);
+    MS := TMemoryStream.Create;
+    vHodometro.Bitmap := BitmapFromBase64(TAbastecimentoimg3.AsString);
+    vHodometro.Bitmap.SaveToStream(MS);
+    MS.Position := 0;
+    ppImgKM.Picture.LoadFromStream(MS);
+    vHodometro.Free;
+    MS.Free;
+   end
+   else
+    ppImgKM.Picture.Bitmap := nil;
+end;
+
 procedure TdmReport.ppGroupFooterBand6BeforePrint(Sender: TObject);
 begin
 // if(ppDBCalcLitros.Text.Length>0)and(pplblTotalHoras.Text<>'0') then
@@ -1313,48 +1457,6 @@ begin
 //   /(strToFloat(ppDBkmtotal.Text)))
 // else
 //  ppLblConsumo.Text :='0';
-end;
-
-procedure TdmReport.ppImgBombaPrint(Sender: TObject);
-var
-  objImage : TStringStream;
-  ms: TMemoryStream;
-  vImgBomba, vImgHorimetro : TImage;
-begin
-  if TAbastecimentoimg.AsString.Length>0 then
-   begin
-    vImgBomba := TImage.Create(nil);
-    MS := TMemoryStream.Create;
-    vImgBomba.Bitmap := BitmapFromBase64(TAbastecimentoimg.AsString);
-    vImgBomba.Bitmap.SaveToStream(MS);
-    MS.Position := 0;
-    ppImgBomba.Picture.LoadFromStream(MS);
-    vImgBomba.Free;
-    MS.Free;
-   end
-   else
-    ppImgBomba.Picture.Bitmap := nil;
-end;
-
-procedure TdmReport.ppImgHorimetroPrint(Sender: TObject);
-var
-  objImage : TStringStream;
-  ms: TMemoryStream;
-  vImgBomba, vImgHorimetro : TImage;
-begin
-  if TAbastecimentoimg2.AsString.Length>0 then
-   begin
-    vImgHorimetro := TImage.Create(nil);
-    MS := TMemoryStream.Create;
-    vImgHorimetro.Bitmap := BitmapFromBase64(TAbastecimentoimg2.AsString);
-    vImgHorimetro.Bitmap.SaveToStream(MS);
-    MS.Position := 0;
-    ppImgHorimetro.Picture.LoadFromStream(MS);
-    vImgHorimetro.Free;
-    MS.Free;
-   end
-   else
-    ppImgHorimetro.Picture.Bitmap := nil;
 end;
 
 procedure TdmReport.ReportConsumoMaquinaDia(DataIni, DataFim:TDate;
@@ -1507,12 +1609,16 @@ begin
    Add(' when alerta =3 then ''HODÔMETRO QUEBRADO''');
    Add(' when alerta =4 then ''HODÔMETRO TROCADO''');
    Add(' when alerta =5 then ''OUTROS''');
-   Add('end tipoAlerta');
+   Add('end tipoAlerta,');
+   Add(' ls.nome localestoque,');
+   Add(' cp.nome Compartimento');
    Add('from lubrificacao l');
    Add('join maquinaveiculo m on l.idmaquina =m.id');
    Add('join centrocusto c on c.id=l.idcentrocusto');
    Add('join lubrificacaoprodutos l2 on l2.idlubrificacao=l.id');
    Add('join produtos p on p.id=l2.idproduto');
+   Add('left join localestoque ls on ls.id=l.idlocalestoque');
+   Add('left join compartimentolubricficacao cp on cp.id=l.idcompartimento ');
    Add('where l.status=1');
    Add(vFiltro);
    Open;

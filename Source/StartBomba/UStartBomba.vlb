@@ -238,6 +238,7 @@ Coordinates=1037,760,100,195
 
 [dmdb.TLocalEstoque]
 Coordinates=181,760,119,249
+Visible=False
 
 [Label27]
 Coordinates=1651,1092,60,58
